@@ -1,0 +1,40 @@
+---
+import '../styles/global.css';
+import { buildRecentList } from '../lib/archive';
+import ThemeInit from '../components/ThemeInit.astro';
+import { detectLang } from '../lib/lang';
+import { getPosts } from '../lib/posts';
+
+const posts = await getPosts();
+const sortedPosts = buildRecentList(posts, posts.length);
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <title>Archive</title>
+  </head>
+  <body>
+    <ThemeInit withRects={true} />
+    <main>
+      <h1 class="site-brand" data-testid="site-brand" aria-label="site-title">I WANNA BE A CAPYBARA...</h1>
+      <section data-testid="archive">
+        {sortedPosts.map((post) => (
+          <article data-testid="post-card" class="post-card" data-topic={post.topic}>
+            <h2 class="post-title">
+              <a class="post-title-link" data-testid="post-link" href={`/posts/${post.slug}`} aria-label="읽기">
+                <span data-testid="post-title" lang={detectLang(post.title)}>{post.title}</span>
+              </a>
+            </h2>
+            <div data-testid="card-meta">
+              <span>{post.topic}</span>
+              <time datetime={post.date}>{post.date}</time>
+            </div>
+          </article>
+        ))}
+      </section>
+    </main>
+  </body>
+</html>

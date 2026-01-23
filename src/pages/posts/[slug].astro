@@ -1,0 +1,64 @@
+---
+import '../../styles/global.css';
+import ThemeInit from '../../components/ThemeInit.astro';
+import { detectLang } from '../../lib/lang';
+import { buildReaderBlocks } from '../../lib/readerBlocks';
+import { getPosts } from '../../lib/posts';
+
+export const getStaticPaths = async () => {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+};
+
+const { post } = Astro.props;
+
+const blocks = buildReaderBlocks(String(post.content));
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <title>{post.title}</title>
+  </head>
+  <body class="page-reader">
+    <ThemeInit withRects={false} />
+    <main>
+      <article class="reader">
+        <a class="reader-home" href="/" aria-label="archives로">← archives</a>
+        <h1 data-testid="reader-title" lang={detectLang(post.title)}>{post.title}</h1>
+        <time class="reader-date" data-testid="reader-date" datetime={post.date}>{post.date}</time>
+        <div data-testid="reader-content">
+          {blocks.map((b) =>
+            b.type === 'p' ? (
+              <p>{b.text}</p>
+            ) : b.type === 'youtube' ? (
+              <div class="yt-embed" data-testid="yt-embed">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${b.id}`}
+                  title="YouTube video player"
+                  loading="lazy"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                />
+              </div>
+            ) : (
+              <div class="sp-embed" data-testid="sp-embed">
+                <iframe
+                  src={`https://open.spotify.com/embed/${b.kind}/${b.id}`}
+                  title="Spotify player"
+                  loading="lazy"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  style={`height:${b.kind === 'track' ? '152px' : '352px'};`}
+                />
+              </div>
+            )
+          )}
+        </div>
+        <a class="reader-home" href="/" aria-label="archives로">← archives</a>
+      </article>
+    </main>
+  </body>
+</html>
