@@ -1,5 +1,9 @@
 ---
 import '../styles/global.css';
+
+const BASE = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + '/';
 ---
 <!doctype html>
 <html lang="ko">
@@ -12,7 +16,7 @@ import '../styles/global.css';
     <main>
       <section class="reader">
         <p>존재하지 않는 페이지입니다.</p>
-        <a href="/">홈으로</a>
+        <a href={BASE}>홈으로</a>
       </section>
     </main>
   </body>

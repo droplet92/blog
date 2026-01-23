@@ -2,7 +2,7 @@ import { test, expect, disableAnimations } from './fixtures';
 
 test.describe('Home / Archive', () => {
   test('renders brand and archive list', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/blog/');
 
     await expect(page.getByText('I WANNA BE A CAPYBARA...')).toBeVisible();
     await expect(page.getByTestId('archive')).toBeVisible();
@@ -11,7 +11,7 @@ test.describe('Home / Archive', () => {
   });
 
   test('renders metadata row', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/blog/');
 
     const firstCard = page.getByTestId('post-card').first();
     const meta = firstCard.getByTestId('card-meta');
@@ -20,7 +20,7 @@ test.describe('Home / Archive', () => {
   });
 
   test('renders titles with detected lang', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/blog/');
 
     const titles = page.getByTestId('post-title');
     const count = await titles.count();
@@ -34,7 +34,7 @@ test.describe('Home / Archive', () => {
   });
 
   test('navigates to post detail from title link', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/blog/');
 
     const firstCard = page.getByTestId('post-card').first();
     await firstCard.getByTestId('post-link').click();
@@ -43,7 +43,7 @@ test.describe('Home / Archive', () => {
   });
 
   test('mobile-first screenshot', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/blog/');
 
     // Reduce visual flakiness.
     await disableAnimations(page);
@@ -65,7 +65,7 @@ test.describe('Home / Archive', () => {
 
   test('desktop layout is centered (container) and left-aligned (text)', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
-    await page.goto('/');
+    await page.goto('/blog/');
 
     await disableAnimations(page);
 

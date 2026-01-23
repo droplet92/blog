@@ -4,7 +4,7 @@ test.describe('Reader page', () => {
   test('shows single-focus reading layout and no UI chrome', async ({ page }) => {
     const slugs = await getPostSlugsFromHome(page);
     expect(slugs.length).toBeGreaterThan(0);
-    await page.goto(`/posts/${slugs[0]}`);
+    await page.goto(`/blog/posts/${slugs[0]}`);
 
     await expect(page.getByTestId('reader-title')).toBeVisible();
     await expect(page.getByTestId('reader-date')).toBeVisible();
@@ -23,7 +23,7 @@ test.describe('Reader page', () => {
 
     for (const slug of targetSlugs) {
       await page.setViewportSize({ width: 393, height: 851 });
-      await page.goto(`/posts/${slug}`);
+      await page.goto(`/blog/posts/${slug}`);
       await disableAnimations(page);
 
       await expect(page.getByTestId('reader-title')).toBeVisible();
@@ -37,7 +37,7 @@ test.describe('Reader page', () => {
       });
 
       await page.setViewportSize({ width: 1280, height: 800 });
-      await page.goto(`/posts/${slug}`);
+      await page.goto(`/blog/posts/${slug}`);
       await disableAnimations(page);
 
       await expect(page.getByTestId('reader-title')).toBeVisible();

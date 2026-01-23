@@ -7,13 +7,17 @@ import { getPosts } from '../lib/posts';
 
 const posts = await getPosts();
 const sortedPosts = buildRecentList(posts, posts.length);
+
+const BASE = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + '/';
 ---
 <!doctype html>
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href={`${BASE}favicon.ico`} sizes="any" />
     <title>Archive</title>
   </head>
   <body>
@@ -24,7 +28,7 @@ const sortedPosts = buildRecentList(posts, posts.length);
         {sortedPosts.map((post) => (
           <article data-testid="post-card" class="post-card" data-topic={post.topic}>
             <h2 class="post-title">
-              <a class="post-title-link" data-testid="post-link" href={`/posts/${post.slug}`} aria-label="읽기">
+              <a class="post-title-link" data-testid="post-link" href={`${BASE}posts/${post.slug}`} aria-label="읽기">
                 <span data-testid="post-title" lang={detectLang(post.title)}>{post.title}</span>
               </a>
             </h2>

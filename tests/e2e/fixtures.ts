@@ -8,7 +8,7 @@ export async function disableAnimations(page: Page) {
 }
 
 export async function getPostSlugsFromHome(page: Page): Promise<string[]> {
-  await page.goto('/');
+  await page.goto('/blog/');
   const hrefs = await page.getByTestId('post-link').evaluateAll((els) =>
     els
       .map((el) => (el instanceof HTMLAnchorElement ? el.getAttribute('href') : null))
