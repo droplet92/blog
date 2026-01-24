@@ -1,7 +1,34 @@
 export type ReaderBlock =
   | { type: 'p'; text: string }
+  | { type: 'image'; src: string; alt: string; title?: string }
   | { type: 'youtube'; id: string }
   | { type: 'spotify'; kind: 'track' | 'album' | 'playlist'; id: string };
+
+const MARKDOWN_IMAGE_RE =
+  /^!\[([^\]]*)\]\(\s*([^\s)]+)(?:\s+("([^"]*)"|'([^']*)'))?\s*\)$/;
+
+function isSafeImageSrc(src: string): boolean {
+  // Prefer stable, deploy-safe URLs.
+  // - /... will be resolved against BASE_URL at render-time
+  // - http(s) allowed for externally hosted images
+  // Disallow data: and javascript: (and other schemes) to avoid footguns.
+  if (src.startsWith('/')) return true;
+  if (src.startsWith('http://') || src.startsWith('https://')) return true;
+  return false;
+}
+
+function tryParseMarkdownImageParagraph(paragraph: string): ReaderBlock | null {
+  const match = paragraph.trim().match(MARKDOWN_IMAGE_RE);
+  if (!match) return null;
+
+  const alt = match[1] ?? '';
+  const src = match[2] ?? '';
+  const title = match[4] ?? match[5] ?? undefined;
+
+  if (!src || !isSafeImageSrc(src)) return null;
+
+  return { type: 'image', src, alt, title };
+}
 
 const YOUTUBE_ID_RE = /^[A-Za-z0-9_-]{11}$/;
 
@@ -109,6 +136,12 @@ export function buildReaderBlocks(content: string): ReaderBlock[] {
   const blocks: ReaderBlock[] = [];
 
   for (const paragraph of paragraphs) {
+    const image = tryParseMarkdownImageParagraph(paragraph);
+    if (image) {
+      blocks.push(image);
+      continue;
+    }
+
     const { cleanText, embeds } = collectEmbedsAndCleanText(paragraph);
 
     if (cleanText) {

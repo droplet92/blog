@@ -16,6 +16,8 @@ const BASE = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
   : import.meta.env.BASE_URL + '/';
 
+const withBase = (src) => (src.startsWith('/') ? `${BASE}${src.slice(1)}` : src);
+
 const blocks = buildReaderBlocks(String(post.content));
 ---
 <!doctype html>
@@ -37,6 +39,11 @@ const blocks = buildReaderBlocks(String(post.content));
           {blocks.map((b) =>
             b.type === 'p' ? (
               <p>{b.text}</p>
+            ) : b.type === 'image' ? (
+              <figure class="reader-image" data-testid="reader-image">
+                <img src={withBase(b.src)} alt={b.alt} loading="lazy" decoding="async" />
+                {b.title ? <figcaption>{b.title}</figcaption> : null}
+              </figure>
             ) : b.type === 'youtube' ? (
               <div class="yt-embed" data-testid="yt-embed">
                 <iframe

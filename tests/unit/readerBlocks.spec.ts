@@ -64,4 +64,19 @@ describe('buildReaderBlocks', () => {
       { type: 'spotify', kind: 'track', id: '0VjIjW4GlUZAMYd2vXMi3b' }
     ]);
   });
+
+  it('parses a Markdown image paragraph into an image block', () => {
+    const blocks = buildReaderBlocks('![pinball](/posts/pinball/cover.jpg)');
+    expect(blocks).toEqual([{ type: 'image', src: '/posts/pinball/cover.jpg', alt: 'pinball' }]);
+  });
+
+  it('supports an optional Markdown image title/caption', () => {
+    const blocks = buildReaderBlocks('![alt](/img.jpg "caption")');
+    expect(blocks).toEqual([{ type: 'image', src: '/img.jpg', alt: 'alt', title: 'caption' }]);
+  });
+
+  it('does not treat unsafe image sources as an image block', () => {
+    const blocks = buildReaderBlocks('![x](javascript:alert(1))');
+    expect(blocks).toEqual([{ type: 'p', text: '![x](javascript:alert(1))' }]);
+  });
 });

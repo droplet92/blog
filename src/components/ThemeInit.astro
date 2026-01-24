@@ -5,7 +5,7 @@ export interface Props {
 
 const { withRects = false } = Astro.props;
 ---
-<script is:inline>
+<script is:inline define:vars={{ withRects }}>
   (() => {
     const root = document.documentElement;
     const fixed = (globalThis).__E2E_FIXED_BG__ === true;
@@ -15,7 +15,6 @@ const { withRects = false } = Astro.props;
       ? 'blue'
       : palettes[Math.floor(Math.random() * palettes.length)];
 
-    const withRects = {withRects ? 'true' : 'false'};
     if (!withRects) return;
 
     const setPosPx = (name, x, y) => {
