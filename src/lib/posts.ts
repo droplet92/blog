@@ -1,4 +1,4 @@
-export type PostTopic = 'music' | 'game' | 'dev';
+export type PostTopic = 'music' | 'game' | 'dev' | 'translation';
 
 export type Post = {
   slug: string;
@@ -17,7 +17,7 @@ type Frontmatter = {
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 function coerceTopic(value: unknown): PostTopic {
-  if (value === 'music' || value === 'game' || value === 'dev') return value;
+  if (value === 'music' || value === 'game' || value === 'dev' || value === 'translation') return value;
   return 'dev';
 }
 

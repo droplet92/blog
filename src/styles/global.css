@@ -302,6 +302,27 @@ iframe {
   margin: 0 0 16px;
 }
 
+.reader h2,
+.reader h3,
+.reader h4 {
+  margin: 26px 0 12px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.reader h2 {
+  font-size: 16px;
+}
+
+.reader h3 {
+  font-size: 14px;
+}
+
+.reader h4 {
+  font-size: 13px;
+  color: color-mix(in srgb, var(--fg) 85%, var(--muted));
+}
+
 .reader p {
   font-size: 12.5px;
   line-height: 1.55;

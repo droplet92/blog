@@ -18,6 +18,9 @@ const BASE = import.meta.env.BASE_URL.endsWith('/')
 
 const withBase = (src) => (src.startsWith('/') ? `${BASE}${src.slice(1)}` : src);
 
+const isExternalHref = (href) =>
+  typeof href === 'string' && (href.startsWith('http://') || href.startsWith('https://'));
+
 const blocks = buildReaderBlocks(String(post.content));
 ---
 <!doctype html>
@@ -38,7 +41,69 @@ const blocks = buildReaderBlocks(String(post.content));
         <div data-testid="reader-content">
           {blocks.map((b) =>
             b.type === 'p' ? (
-              <p>{b.text}</p>
+              <p>
+                {b.inlines.map((i) =>
+                  i.type === 'text' ? (
+                    i.value
+                  ) : (
+                    <a
+                      href={i.href}
+                      target={isExternalHref(i.href) ? '_blank' : undefined}
+                      rel={isExternalHref(i.href) ? 'noreferrer noopener' : undefined}
+                    >
+                      {i.text}
+                    </a>
+                  )
+                )}
+              </p>
+            ) : b.type === 'h2' ? (
+              <h2>
+                {b.inlines.map((i) =>
+                  i.type === 'text' ? (
+                    i.value
+                  ) : (
+                    <a
+                      href={i.href}
+                      target={isExternalHref(i.href) ? '_blank' : undefined}
+                      rel={isExternalHref(i.href) ? 'noreferrer noopener' : undefined}
+                    >
+                      {i.text}
+                    </a>
+                  )
+                )}
+              </h2>
+            ) : b.type === 'h3' ? (
+              <h3>
+                {b.inlines.map((i) =>
+                  i.type === 'text' ? (
+                    i.value
+                  ) : (
+                    <a
+                      href={i.href}
+                      target={isExternalHref(i.href) ? '_blank' : undefined}
+                      rel={isExternalHref(i.href) ? 'noreferrer noopener' : undefined}
+                    >
+                      {i.text}
+                    </a>
+                  )
+                )}
+              </h3>
+            ) : b.type === 'h4' ? (
+              <h4>
+                {b.inlines.map((i) =>
+                  i.type === 'text' ? (
+                    i.value
+                  ) : (
+                    <a
+                      href={i.href}
+                      target={isExternalHref(i.href) ? '_blank' : undefined}
+                      rel={isExternalHref(i.href) ? 'noreferrer noopener' : undefined}
+                    >
+                      {i.text}
+                    </a>
+                  )
+                )}
+              </h4>
             ) : b.type === 'image' ? (
               <figure class="reader-image" data-testid="reader-image">
                 <img src={withBase(b.src)} alt={b.alt} loading="lazy" decoding="async" />

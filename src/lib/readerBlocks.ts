@@ -1,5 +1,12 @@
+export type ReaderInline =
+  | { type: 'text'; value: string }
+  | { type: 'link'; href: string; text: string };
+
 export type ReaderBlock =
-  | { type: 'p'; text: string }
+  | { type: 'p'; inlines: ReaderInline[] }
+  | { type: 'h2'; inlines: ReaderInline[] }
+  | { type: 'h3'; inlines: ReaderInline[] }
+  | { type: 'h4'; inlines: ReaderInline[] }
   | { type: 'image'; src: string; alt: string; title?: string }
   | { type: 'youtube'; id: string }
   | { type: 'spotify'; kind: 'track' | 'album' | 'playlist'; id: string };
@@ -14,6 +21,21 @@ function isSafeImageSrc(src: string): boolean {
   // Disallow data: and javascript: (and other schemes) to avoid footguns.
   if (src.startsWith('/')) return true;
   if (src.startsWith('http://') || src.startsWith('https://')) return true;
+  return false;
+}
+
+function isSafeHref(href: string): boolean {
+  const h = href.trim();
+  if (!h) return false;
+
+  // Allow in-site and same-page links.
+  if (h.startsWith('/') || h.startsWith('#') || h.startsWith('./') || h.startsWith('../')) return true;
+
+  // Allow basic schemes that make sense for a blog.
+  if (h.startsWith('http://') || h.startsWith('https://')) return true;
+  if (h.startsWith('mailto:')) return true;
+
+  // Disallow javascript:, data:, file:, etc.
   return false;
 }
 
@@ -127,6 +149,139 @@ function collectEmbedsAndCleanText(text: string): { cleanText: string; embeds: R
   return { cleanText: cleanText.replace(/\s{2,}/g, ' ').trim(), embeds: compactEmbeds };
 }
 
+const MARKDOWN_LINK_RE = /\[([^\]]+)\]\(([^)\s]+)\)/g;
+
+function splitMarkdownLinks(text: string): ReaderInline[] {
+  const inlines: ReaderInline[] = [];
+  let last = 0;
+
+  for (const match of text.matchAll(MARKDOWN_LINK_RE)) {
+    const idx = match.index ?? -1;
+    if (idx < 0) continue;
+
+    const label = match[1] ?? '';
+    const href = match[2] ?? '';
+
+    if (idx > last) {
+      inlines.push({ type: 'text', value: text.slice(last, idx) });
+    }
+
+    if (label && isSafeHref(href)) {
+      inlines.push({ type: 'link', href, text: label });
+    } else {
+      // If it isn't safe/valid, keep the raw text.
+      inlines.push({ type: 'text', value: match[0] });
+    }
+
+    last = idx + match[0].length;
+  }
+
+  if (last < text.length) {
+    inlines.push({ type: 'text', value: text.slice(last) });
+  }
+
+  return inlines.length ? inlines : [{ type: 'text', value: text }];
+}
+
+function normalizeInlines(inlines: ReaderInline[], opts?: { trimEdges?: boolean }): ReaderInline[] {
+  const merged: ReaderInline[] = [];
+
+  for (const inline of inlines) {
+    if (inline.type === 'text') {
+      const value = inline.value.replace(/\s+/g, ' ');
+      if (!value) continue;
+
+      const prev = merged[merged.length - 1];
+      if (prev?.type === 'text') {
+        prev.value = (prev.value + value).replace(/\s+/g, ' ');
+      } else {
+        merged.push({ type: 'text', value });
+      }
+      continue;
+    }
+
+    merged.push(inline);
+  }
+
+  if (opts?.trimEdges) {
+    const first = merged[0];
+    if (first?.type === 'text') first.value = first.value.trimStart();
+    const last = merged[merged.length - 1];
+    if (last?.type === 'text') last.value = last.value.trimEnd();
+  }
+
+  return merged.filter((i) => (i.type === 'text' ? i.value.length > 0 : true));
+}
+
+function linkifyAndExtractEmbedsFromText(text: string): { inlines: ReaderInline[]; embeds: ReaderBlock[] } {
+  const embeds: ReaderBlock[] = [];
+  const urlRe = /(https?:\/\/[^\s<>()\]]+)/g;
+
+  const pieces: ReaderInline[] = [];
+  let last = 0;
+
+  for (const match of text.matchAll(urlRe)) {
+    const idx = match.index ?? -1;
+    if (idx < 0) continue;
+    const rawUrl = match[1] ?? '';
+
+    if (idx > last) {
+      pieces.push({ type: 'text', value: text.slice(last, idx) });
+    }
+
+    const ytId = extractYouTubeIdFromUrl(rawUrl);
+    if (ytId) {
+      embeds.push({ type: 'youtube', id: ytId });
+    } else {
+      const sp = extractSpotifyFromUrl(rawUrl);
+      if (sp) {
+        embeds.push({ type: 'spotify', kind: sp.kind, id: sp.id });
+      } else if (isSafeHref(rawUrl)) {
+        // Auto-link normal URLs.
+        pieces.push({ type: 'link', href: rawUrl, text: rawUrl });
+      } else {
+        pieces.push({ type: 'text', value: rawUrl });
+      }
+    }
+
+    last = idx + match[0].length;
+  }
+
+  if (last < text.length) {
+    pieces.push({ type: 'text', value: text.slice(last) });
+  }
+
+  // De-dupe consecutive duplicates for YouTube (common when the same link appears multiple times).
+  const compactEmbeds: ReaderBlock[] = [];
+  for (const e of embeds) {
+    const prev = compactEmbeds[compactEmbeds.length - 1];
+    if (prev && prev.type === 'youtube' && e.type === 'youtube' && prev.id === e.id) continue;
+    compactEmbeds.push(e);
+  }
+
+  return { inlines: normalizeInlines(pieces), embeds: compactEmbeds };
+}
+
+function parseParagraphToInlinesAndEmbeds(paragraph: string): { inlines: ReaderInline[]; embeds: ReaderBlock[] } {
+  const linkSplit = splitMarkdownLinks(paragraph);
+
+  const combinedInlines: ReaderInline[] = [];
+  const embeds: ReaderBlock[] = [];
+
+  for (const inline of linkSplit) {
+    if (inline.type === 'link') {
+      combinedInlines.push(inline);
+      continue;
+    }
+
+    const { inlines, embeds: extracted } = linkifyAndExtractEmbedsFromText(inline.value);
+    combinedInlines.push(...inlines);
+    embeds.push(...extracted);
+  }
+
+  return { inlines: normalizeInlines(combinedInlines, { trimEdges: true }), embeds };
+}
+
 export function buildReaderBlocks(content: string): ReaderBlock[] {
   const paragraphs = String(content)
     .split(/\n\s*\n/g)
@@ -136,16 +291,32 @@ export function buildReaderBlocks(content: string): ReaderBlock[] {
   const blocks: ReaderBlock[] = [];
 
   for (const paragraph of paragraphs) {
+    const headingMatch = paragraph.match(/^(#{2,4})\s+(.+)$/);
+    if (headingMatch) {
+      const level = headingMatch[1].length;
+      const headingText = headingMatch[2] ?? '';
+      const { inlines } = parseParagraphToInlinesAndEmbeds(headingText);
+
+      if (inlines.length) {
+        if (level === 2) blocks.push({ type: 'h2', inlines });
+        if (level === 3) blocks.push({ type: 'h3', inlines });
+        if (level === 4) blocks.push({ type: 'h4', inlines });
+      }
+
+      continue;
+    }
+
     const image = tryParseMarkdownImageParagraph(paragraph);
     if (image) {
       blocks.push(image);
       continue;
     }
 
-    const { cleanText, embeds } = collectEmbedsAndCleanText(paragraph);
+    // Keep legacy embed extraction behavior, but also add safe hyperlinks.
+    const { inlines, embeds } = parseParagraphToInlinesAndEmbeds(paragraph);
 
-    if (cleanText) {
-      blocks.push({ type: 'p', text: cleanText });
+    if (inlines.length) {
+      blocks.push({ type: 'p', inlines });
     }
 
     blocks.push(...embeds);

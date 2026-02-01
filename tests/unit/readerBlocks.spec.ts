@@ -5,8 +5,8 @@ describe('buildReaderBlocks', () => {
   it('keeps normal paragraphs', () => {
     const blocks = buildReaderBlocks('Hello world\n\nSecond para');
     expect(blocks).toEqual([
-      { type: 'p', text: 'Hello world' },
-      { type: 'p', text: 'Second para' }
+      { type: 'p', inlines: [{ type: 'text', value: 'Hello world' }] },
+      { type: 'p', inlines: [{ type: 'text', value: 'Second para' }] }
     ]);
   });
 
@@ -18,7 +18,7 @@ describe('buildReaderBlocks', () => {
   it('extracts YouTube links from within text and appends embed blocks', () => {
     const blocks = buildReaderBlocks('Watch this https://www.youtube.com/watch?v=dQw4w9WgXcQ thanks');
     expect(blocks).toEqual([
-      { type: 'p', text: 'Watch this thanks' },
+      { type: 'p', inlines: [{ type: 'text', value: 'Watch this thanks' }] },
       { type: 'youtube', id: 'dQw4w9WgXcQ' }
     ]);
   });
@@ -60,7 +60,7 @@ describe('buildReaderBlocks', () => {
     );
 
     expect(blocks).toEqual([
-      { type: 'p', text: 'Now playing and moving on' },
+      { type: 'p', inlines: [{ type: 'text', value: 'Now playing and moving on' }] },
       { type: 'spotify', kind: 'track', id: '0VjIjW4GlUZAMYd2vXMi3b' }
     ]);
   });
@@ -77,6 +77,46 @@ describe('buildReaderBlocks', () => {
 
   it('does not treat unsafe image sources as an image block', () => {
     const blocks = buildReaderBlocks('![x](javascript:alert(1))');
-    expect(blocks).toEqual([{ type: 'p', text: '![x](javascript:alert(1))' }]);
+    expect(blocks).toEqual([
+      { type: 'p', inlines: [{ type: 'text', value: '![x](javascript:alert(1))' }] }
+    ]);
+  });
+
+  it('parses Markdown-style links into inline link tokens', () => {
+    const blocks = buildReaderBlocks('Go to [Astro](https://astro.build) now');
+    expect(blocks).toEqual([
+      {
+        type: 'p',
+        inlines: [
+          { type: 'text', value: 'Go to ' },
+          { type: 'link', href: 'https://astro.build', text: 'Astro' },
+          { type: 'text', value: ' now' }
+        ]
+      }
+    ]);
+  });
+
+  it('auto-links plain URLs (when they are not converted to embeds)', () => {
+    const blocks = buildReaderBlocks('See https://example.com for details');
+    expect(blocks).toEqual([
+      {
+        type: 'p',
+        inlines: [
+          { type: 'text', value: 'See ' },
+          { type: 'link', href: 'https://example.com', text: 'https://example.com' },
+          { type: 'text', value: ' for details' }
+        ]
+      }
+    ]);
+  });
+
+  it('supports subheadings via ## / ### / #### paragraphs', () => {
+    const blocks = buildReaderBlocks(['## Intro', '', 'Text', '', '### Part', '', '#### Note'].join('\n'));
+    expect(blocks).toEqual([
+      { type: 'h2', inlines: [{ type: 'text', value: 'Intro' }] },
+      { type: 'p', inlines: [{ type: 'text', value: 'Text' }] },
+      { type: 'h3', inlines: [{ type: 'text', value: 'Part' }] },
+      { type: 'h4', inlines: [{ type: 'text', value: 'Note' }] }
+    ]);
   });
 });

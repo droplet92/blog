@@ -4,7 +4,7 @@ import { buildRecentList } from '../../src/lib/archive';
 type PostMeta = {
   slug: string;
   title: string;
-  topic: 'music' | 'game' | 'dev';
+  topic: 'music' | 'game' | 'dev' | 'translation';
   date: string; // YYYY-MM-DD
 };
 

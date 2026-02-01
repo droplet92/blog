@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/favicon.ico" sizes="any"><title>얼터너티브 아이돌?</title><link rel="stylesheet" href="/blog/_astro/index.D-IOTMtv.css"></head> <body class="page-reader"> <script>(function(){const withRects = false;
+
+  (() => {
+    const root = document.documentElement;
+    const fixed = (globalThis).__E2E_FIXED_BG__ === true;
+
+    const palettes = ['blue', 'plum', 'forest', 'rust'];
+    root.dataset.palette = fixed
+      ? 'blue'
+      : palettes[Math.floor(Math.random() * palettes.length)];
+
+    if (!withRects) return;
+
+    const setPosPx = (name, x, y) => {
+      root.style.setProperty(name + '-x', `${x}px`);
+      root.style.setProperty(name + '-y', `${y}px`);
+    };
+
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+    const apply = () => {
+      const vw = Math.max(320, Math.floor(window.innerWidth || 0));
+      const vh = Math.max(480, Math.floor(window.innerHeight || 0));
+      const margin = 12;
+
+      const px = (value) => {
+        const n = Number.parseFloat(String(value).trim());
+        return Number.isFinite(n) ? n : 0;
+      };
+
+      const styles = getComputedStyle(root);
+      const sizes = {
+        s: { w: px(styles.getPropertyValue('--rect-s-w')), h: px(styles.getPropertyValue('--rect-s-h')) },
+        m: { w: px(styles.getPropertyValue('--rect-m-w')), h: px(styles.getPropertyValue('--rect-m-h')) },
+        l: { w: px(styles.getPropertyValue('--rect-l-w')), h: px(styles.getPropertyValue('--rect-l-h')) }
+      };
+
+      const place = (size, minY = margin) => {
+        const maxX = Math.max(margin, vw - size.w - margin);
+        const maxY = Math.max(minY, vh - size.h - margin);
+        return {
+          x: randInt(margin, maxX),
+          y: randInt(minY, maxY),
+          w: size.w,
+          h: size.h
+        };
+      };
+
+      if (fixed) {
+        // Deterministic layout for Playwright.
+        const s1 = { x: 24, y: Math.min(280, vh - 80), ...sizes.s };
+        const s2 = { x: Math.max(24, vw - 140), y: 72, ...sizes.s };
+        const s3 = { x: Math.max(24, vw - 160), y: Math.max(72, vh - 160), ...sizes.s };
+        const m = { x: Math.max(24, vw - 320), y: Math.floor(vh * 0.4), ...sizes.m };
+        const l = { x: Math.max(24, vw - 520), y: Math.floor(vh * 0.72), ...sizes.l };
+
+        setPosPx('--rect-s1', s1.x, s1.y);
+        setPosPx('--rect-s2', s2.x, s2.y);
+        setPosPx('--rect-s3', s3.x, s3.y);
+        setPosPx('--rect-m', m.x, m.y);
+        setPosPx('--rect-l', l.x, l.y);
+        return;
+      }
+
+      // Overlap is allowed (collage feel). Keep a tiny bit of calm at the very top.
+      const topPad = 56;
+      const large = place(sizes.l, topPad);
+      const medium = place(sizes.m, topPad);
+      const s1 = place(sizes.s, topPad);
+      const s2 = place(sizes.s, topPad);
+      const s3 = place(sizes.s, topPad);
+
+      setPosPx('--rect-l', large.x, large.y);
+      setPosPx('--rect-m', medium.x, medium.y);
+      setPosPx('--rect-s1', s1.x, s1.y);
+      setPosPx('--rect-s2', s2.x, s2.y);
+      setPosPx('--rect-s3', s3.x, s3.y);
+    };
+
+    // Run after layout so we can avoid the real content column.
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      requestAnimationFrame(apply);
+    } else {
+      window.addEventListener('DOMContentLoaded', () => requestAnimationFrame(apply), { once: true });
+    }
+
+    // If Astro View Transitions are enabled later, re-randomize on navigation.
+    document.addEventListener('astro:page-load', () => requestAnimationFrame(apply));
+  })();
+})();</script> <main> <article class="reader"> <a class="reader-home" href="/blog/" aria-label="archives로">← archives</a> <h1 data-testid="reader-title" lang="ko">얼터너티브 아이돌?</h1> <time class="reader-date" data-testid="reader-date" datetime="2026-02-01">2026-02-01</time> <div data-testid="reader-content"> <p> <a href="https://droplet92.github.io/blog/posts/ray-asia-tour-2024-korea" target="_blank" rel="noreferrer noopener"> 번역: 2024/7/12-14 RAY ASIA TOUR 2024 KOREA 체험기 </a> </p><p> 재작년 내한했던 라이브 아이돌 RAY의 프로듀서 멜론짱이 한국에 다녀 와서 남긴 글. 한국과 일본의 상황을 비교하는 내용을 보면 일본은 지하 아이돌도 오리지널 곡을 가지고, 매니저가 존재하고, 대부분 소속사에 소속되는 것으로 보인다. 일본인 친구 하나도 지하 아이돌 활동을 했는데 (한 번 탈퇴하고 나서 지금도 다른 활동을 하는진 모르겠다) 큰 규모로 보이지 않았음에도 소속사가 있고 매니저가 있다는 게 신기했다. </p><div class="sp-embed" data-testid="sp-embed"> <iframe src="https://open.spotify.com/embed/track/3tczE7x8dCOowujDao0wP8" title="Spotify player" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" style="height:152px;"></iframe> </div><p> 차은우, 송가인, 씨엘, 강동원 등... 최근 1~2주 사이에 수많은 연예인들이 대중문화예술기획업 미등록 혐의로 뉴스에 올랐다. (차은우 씨는 다른 이슈가 더 크긴 한데 암튼.) 대개 원 소속사에서 나와 1인 기획사를 설립하고 그 과정에서 등록을 누락한 것으로 보였다. 동시에 딥플로우의 대중문화예술기획업이라는 노래가 재차 생각났다. &quot;아니 그 인디 레이블은 자생할 수 없는 거예요?&quot;라는 한 마디가 웃프게 다가오면서도 법을 준수하기 위해 고군분투하는 딥플로우가 멋있어 보인다. </p><p> 일본에도 대중문화예술기획업 같은 게 필요한진 잘 모르겠다. 비슷한 게 있든 다른 형태로 있든 아예 없든 간에 지하 아이돌 소속사가 보편적인 환경이라면 합법적으로 활동하고 있겠지. 아무리 인디에 DIY라고 해도 소속사가 있고 없고는 차이가 커 보인다. 아는 국내 지하돌이라곤 NEKIRU(네, 키이떼루?)와 2025 펜타포트 슈퍼루키 본선에 진출했던 X!DENT(엑시던트), 그리고 LuciDreaM(루시드림) 정도인데 각각 수소 엔터테인먼트, 아티팩토리 엔터테인먼트, 엔데이즈라고 하는 곳에 소속돼 있다. 과거엔 다른 곳에 있었던 것도 같고 자세히는 모르겠다. 동시에 이들은 음원도 발매한다. 커버 활동으로 무대를 꾸리는 여타 지하 아이돌과는 차별점이 있다. </p><div class="yt-embed" data-testid="yt-embed"> <iframe src="https://www.youtube-nocookie.com/embed/M1EXYQvAIvw" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> </div><p> 지하돌을 처음 접한 건 유루메루모! 였다. 당시에도 아노는 나름 컬트적인 인기가 있었고 &#39;저런 걸 왜 좋아하지&#39; 하면서도 &#39;저런 게 있구나&#39;하고 신기해하며 지나쳤던 기억이 난다. 물론 아노는 금세 메이저로 넘어갔다. 그리고 때마침 내가 좋아하는 메이저 레이블 토이즈 팩토리에서 데뷔한다는 소리를 듣고 그때부터 제대로 팔로우하기 시작했다. 비슷한 시기 반다이 남코에서 넘어왔던 아이마스 최애 작곡가 이노타쿠가 데뷔곡 딜리트에 참여했는데, 이런 것도 할 수 있구나 하고 꽤나 놀랐다. </p><div class="yt-embed" data-testid="yt-embed"> <iframe src="https://www.youtube-nocookie.com/embed/5IEz5dtQeV4" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> </div><p> 그로부터 시간이 꽤 흘러서 RAY를 알게 됐다. 포락갤에서 누가 약을 팔았는데 노래가 좋은 거다. 정규 앨범, 우치야마 솔로, 도쿄 닷츠 등등 기존 디스코그래피를 쭉 흡수하면서 지하 아이돌의 인식이 바뀌었다. 내한 공연 당일에도 다들 땀을 뻘뻘 흘리면서 음향도 안 좋은 곳에서 핸드 마이크 들고 (가창이 뛰어나다곤 못 하겠지만...) 춤추며 노래하는 모습에 반했다. 오시카츠나 츠나가리 같은 게 아니라,, 멋있는 사람들이라고 생각했다. 티켓 저렴하고 앨범도 사야겠다 하고 물판에 가니까 다들 체키를 구매하길래 &#39;체키까지가 지하돌&#39;이라는 생각이 들어서 언제 또 이런 데 와 보겠냐 싶어 구매했다. 그날 무대에서 내 쪽을 가장 많이 바라봐줬다고 생각하는 멤버를 골랐는데, 후에 알아보니까 그게 우치야마였다. 대화 내용은 특정될 수 있어서 오픈하지 않을 건데 음악 이야기와 공연 이야기를 생각보단 길게 나눌 수 있어서 좋은 인상으로 남았다. </p><div class="yt-embed" data-testid="yt-embed"> <iframe src="https://www.youtube-nocookie.com/embed/5dMWZjXguvo" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> </div><p> 내 기억이 맞다면 I&#39;s의 라이브 블루레이를 살 때 배송비 때문에 CD 2장을 추가로 구매했다. 아오바 이치코의 0과 우치야마 유아의 I를 함께 샀다. I는 더블 싱글이라 가격이 저렴해서 딱코를 할 수 있엇고 노래도 원체 좋아했어서 같이 구매했다. Y의 작곡가가 유키치카사쿠/멘인데, 이전에도 하쿠시 하세가와랑 같이 작업했던 巣食いのて나 2.0.0.3 같은 글리치 팝 계열 트랙들을 좋아했다. (Y는 글리치는 아니지만.) </p><div class="yt-embed" data-testid="yt-embed"> <iframe src="https://www.youtube-nocookie.com/embed/YEyzvbCGXNc" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> </div><p> 작년 1월 미친듯이 돌려 봤던 뮤직비디오가 2개 있다. 유튜브 알고리즘에 걸려서 찍먹해봤는데 여간내기가 아니었다. 하나가 diig의 neon. diig가 2024년에 처음 EP를 발매하고 그 다음으로 낸 게 싱글 neon이었다. 작곡은 유키치카사쿠/멘. 그외에도 가사랑 뮤비도 좋고 카티가 담당한 비주얼까지, 갓 데뷔한 지하돌치곤 퀄리티가 높다고 생각했다. (대단한 걸 바라면 안 된다. 근데 사운드는 그 정도 한다고 본다.) 엊그제 나온 싱글 gura를 오늘 들었는데, 그간 싱글들도 분명 괜찮았지만, 이번엔 그때 생각이 나서 보니까 또 유키치카사쿠/멘인 거다. 몇 가지 호감 포인트를 집어보자면 빠른 BPM에 4가지 소리밖에 안 나오는 중독적인 훅 (구라구라라 구라데-숀 / 라라라 / 구라구라라 구라데-숀 / 구라구라), 마지막에 BPM을 올렸다 내리는 파트. 브레인롯 시대에 3분 41초 짜리 곡이 이렇게 짧게 느껴진다는 게 말이 안 된다. </p><div class="sp-embed" data-testid="sp-embed"> <iframe src="https://open.spotify.com/embed/track/39k6x7kbDbRErKj9SSVaFP" title="Spotify player" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" style="height:152px;"></iframe> </div><p> 두 번째로 작년 1월을 달궜던 MV는 REIRIE의 Marionette. 일단 뉴잭스윙 사운드 완성도가 너무 높고 패션이 정말 마음에 들었고 흰 배경에서 좌우로 작아졌다가 커졌다 하는 두 멤버의 모습이 재미있었다. 화살 얼탱이 없이 쏜 다음에 혀깨물 시전하는 것도 포인트고. 이때 이 그룹을 처음 알았다. 확실히 기억하는 이유가, 처음엔 그룹명이 &#39;레이레이&#39;인 줄 알았는데 자세히 보니 &#39;레이리에&#39;였기 때문이다. </p><div class="yt-embed" data-testid="yt-embed"> <iframe src="https://www.youtube-nocookie.com/embed/VGcuuXtVnaU" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> </div><p> 지난 주에 나온 EP를 0시 딱 되자마자 들었는데 콘택트라는 곡이 좋았다. 그거 스토리로 올리니까 위에서 언급한 (아마도 전) 지하돌 친구가 &quot;WA! 레이리에 아시는구나!&quot;하면서 DM이 왔다. 그러고 보니 얘도 레이리에 좋아했지~ 하고. 레이리에 자체는 2023년에 시작했지만, 전에도 같은 그룹을 했다고 들었던 게 생각 나서 찾아보니까, 웬걸 언젠가 한 번쯤 봤을 만한 그룹이었다. </p><div class="yt-embed" data-testid="yt-embed"> <iframe src="https://www.youtube-nocookie.com/embed/M8-vje-bq9c" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> </div><p> LADYBABY의 레이와 리에는 사실상 Ladybeard를 돋보이게 하기 위한 포지션이었던 것 같지만, 연예계에서 빠르게 인지도와 인기를 얻었다는 것만으로도 의미 있던 시간이 아니었을까? 레이 리에의 첫 트리플 싱글 중 하나인 PUI가 카와이 메탈인 것도 분명 이 활동의 영향이 있었을 것이다. LADYBABY 쪽은 다음에 더 파 볼 생각. </p><p> 완전 번외로, 일본에서는 최근에 여자들도 담배, 특히 전자담배를 많이 피고 그 사실을 (한국보다는 더) 드러내는 것처럼 느껴진다. 예를 들면 세븐스 베가의 시부야 칸나는 가사에 &#39;럭키 스트라이크&#39;를 언급하거나 영상 및 라이브 등지에서 종종 흡연하는 모습을 보여준다. 그래서 레이와 리에가 What&#39;s in MY BAG을 한다길래 &#39;담배 함 보여주나?&#39; 하고 기대했는데 아쉽게도(?) 그런 건 나오지 않았다. Bad=DoLL 뮤비에서 후카를 흡연한 듯한 모습이 나오긴 하지만. 오히려 diig의 한 미성년 멤버가 담배를 걸려서 일주일간 자숙한 적이 있었다. 언젠가 &#39;한국에서는 여자가 담배를 피면 좋지 않게 보인다&#39;며 감추려고 했던 모습을 봤어서. 언제쯤에야 미디어에서 여자가 피우는 장면이 부자연스럽지 않게 나올까. (그렇다고 또 나와야 한다 이런 건 아니다. 일단 몸에 안 좋고. 두어 번 태워본 적은 있지만 아무런 감흥도 없어서 안 피운다.) </p><div class="yt-embed" data-testid="yt-embed"> <iframe src="https://www.youtube-nocookie.com/embed/9HAHgattekU" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> </div><p> 지하 아이돌이 RYM에서 &#39;얼터너티브 아이돌&#39;로 분류된다면 이소, 베이비 야나, 더 딥 같은 아티스트를 묶어 &#39;얼터너티브 케이팝&#39;으로 분류하기도 한다. 일렉트로 팝 기반의 (특히 저지 클럽에서 영향 받은) 여성 솔로로 일련의 에스테틱을 공유하는 뮤지션들. 그중에서도 더 딥은 작년 에피, 킴제이 등과 함께 MY UNNIES 크루를 꾸리고 12월 KPOP B!TCH라는 앨범을 발매하며 보다 본격적으로 &#39;케이팝&#39;을 내세웠다. </p><div class="yt-embed" data-testid="yt-embed"> <iframe src="https://www.youtube-nocookie.com/embed/kvhVECfGsw8" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> </div><p> 심지어 이런 흐름에 전직 아이돌이었던 이브 같은 아티스트로 합류한다. 핑크팬서리스, 레베카 블랙, 언더스코어스... 이름만 들어도 환상적인 아티스트들과 협업을 이어 나가는 중이다. 오랜 시간 좋다고 하는 건 다 가져다 썼던 케이팝의 태도가 바뀌었다. 유행하는 사운드를 들여올 때도 장르만 들고 오는 게 아니라 그 씬에서 잘 나가는 아티스트와 협업을 한다. 흑인 슬랭을 사용한다, 장르를 도둑질한다는 식의 비판을 피하면서 아티스트의 위상을 빌리는 형태로 말이다. 당장 생각나는 것들로는 수민이 QWER에 제공했던 곡, 키드밀리가 엔믹스에 피쳐링했던 것, 아이들의 신곡에 스카이워터가 참여한 게 있다. </p><p> 메이저 레이블, 대형 기획사에 속하지 않은 채 아이돌 활동 또는 아이돌에 영향 받은 활동을 보여주는 아티스트가 이렇게 많고 그 방법도 다양하다. 동시에 메이저와 인디 사이의 교류도 잦아지고 있다. 메이저는 당위성을 얻고 인디는 돈을 얻는 작금의 구조, 개선도 필요하다. 자본주의적인 협업을 넘어서서 더 깊은 교류가 이루어져야 한다. 당장 뉴진스만 해도 250과 FRNK, 빈지노는 가사와 비트만 제공했지, 만나서 대화를 나누고 보컬 가이드를 봐 주고 하지 않았다. 얼터너티브 아이돌에서 그 해답을 찾을 수 있지 않을까? 언젠가는 아이돌도 아티스트로 인정 받는 새로운 길이 열릴 지도 모른다. </p> </div> <a class="reader-home" href="/blog/" aria-label="archives로">← archives</a> </article> </main> </body></html>
