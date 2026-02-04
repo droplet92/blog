@@ -18,7 +18,7 @@
     "screenshots:info": "node scripts/screenshots-info.mjs"
   },
   "dependencies": {
-    "astro": "^5.0.0"
+    "astro": "^5.17.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.42.0",
