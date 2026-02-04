@@ -1,0 +1,32 @@
+---
+title: P/Invoke
+topic: dev
+date: 2026-02-04
+---
+### P/Invoke (Platform Invoke)
+
+managed 코드에서 unmanaged 라이브러리 호출을 지원하는 닷넷 기술이다. 정확한 표현은 아니지만, 쉽게 후려쳐서 이야기하면 C#에서 C/C++로 만든 동적 라이브러리를 호출할 수 있다. C#의 System과 System.Runtime.InteropServices 네임스페이스에 정의돼 있고, 동적 라이브러리(.dll, .so, .dylib 등)에 정의된 함수, 콜백, 구조체 등에 접근하는 것이 가능하다. 닷넷 7 이전에는 DllImport Attribute와 extern 키워드를 혼합해서 사용했지만, 7부터는 LibraryImport Attribute와 partial 키워드를 섞어서 쓰는 방식도 지원한다. 둘 다 IL stub을 생성해서 마샬링과 SetLastError 등의 전후처리를 하는 건 동일한데, LibraryImport는 AOT 지원을 위해서 등장했다고 한다. Unity에서는 DllImport만 사용할 수 있다.
+
+### 라이브러리 검색 (Resolving)
+
+기본적으로는 [DllImport("kernel32.dll")] 과 같이 작성한다. 확장자는 안 붙여도 되며, 크로스플랫폼을 위해 확장자를 안 붙이는 것이 권장되는 모양이다. 라이브러리 이름만 적으면 System32나 현재 위치 등 일반적인 경로 찾기 순서와 동일한 것 같고, 절대경로도 사용할 수 있다. NativeLibrary.SetDllImportResolver() 함수를 사용해 사용자 정의 리졸브도 가능하다.
+
+### 마샬링 (Marshalling)
+
+managed 코드와 unmanaged 코드 사이의 자료형 변환 프로세스다. 기본적으로 닷넷 System 자료형과 C/C++ 네이티브 형식 간 암시적 변환이 가능하다. 파라미터 및 반환형에 MarshalAs Attribute로 명시적 변환도 가능하다. 함수에 콜백을 전달해야 하는 경우 delegate를 사용하고, 클래스/구조체 이름 상관없이 순서에 맞추려면 StructLayout Attribute 사용한다. 자세한 내용은 아래 링크 확인.
+
+[기본적인 형 변환](https://learn.microsoft.com/ko-kr/dotnet/standard/native-interop/type-marshalling#default-rules-for-marshalling-common-types)
+
+[자세한 형 변환](https://learn.microsoft.com/ko-kr/dotnet/standard/native-interop/customize-struct-marshalling)
+
+### 에러 핸들링
+
+SetLastError = true를 전달하면 Marshal.GetLastPInvokeError()로 에러를 확인할 수 있다.
+
+### 문자열
+
+C#은 기본적으로 UTF-16이기 때문에 주의해야 한다. DllImport에서는 CharSet, LibraryImport에서는 StringMarshalling으로 명시할 수 있다. 가능하면 UTF-8을 쓰자.
+
+### 함수 호출 규약
+
+DllImport에서는 CallingConvention, LibraryImport에서는 UnmanagedCallConv Attribute로 함수 호출 규약을 명시할 수 있다. AMD64 아키텍처에서는 의미 없지만, x86에서는 cdecl, stdcall, fastcall 등을 지정해줘야 한다.
