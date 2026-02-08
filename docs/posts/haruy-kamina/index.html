@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/favicon.ico" sizes="any"><title>Haruy EP &lt;KAMINA&gt; 가사 번역</title><link rel="stylesheet" href="/blog/_astro/index.D-IOTMtv.css"></head> <body class="page-reader"> <script>(function(){const withRects = false;
+
+  (() => {
+    const root = document.documentElement;
+    const fixed = (globalThis).__E2E_FIXED_BG__ === true;
+
+    const palettes = ['blue', 'plum', 'forest', 'rust'];
+    root.dataset.palette = fixed
+      ? 'blue'
+      : palettes[Math.floor(Math.random() * palettes.length)];
+
+    if (!withRects) return;
+
+    const setPosPx = (name, x, y) => {
+      root.style.setProperty(name + '-x', `${x}px`);
+      root.style.setProperty(name + '-y', `${y}px`);
+    };
+
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+    const apply = () => {
+      const vw = Math.max(320, Math.floor(window.innerWidth || 0));
+      const vh = Math.max(480, Math.floor(window.innerHeight || 0));
+      const margin = 12;
+
+      const px = (value) => {
+        const n = Number.parseFloat(String(value).trim());
+        return Number.isFinite(n) ? n : 0;
+      };
+
+      const styles = getComputedStyle(root);
+      const sizes = {
+        s: { w: px(styles.getPropertyValue('--rect-s-w')), h: px(styles.getPropertyValue('--rect-s-h')) },
+        m: { w: px(styles.getPropertyValue('--rect-m-w')), h: px(styles.getPropertyValue('--rect-m-h')) },
+        l: { w: px(styles.getPropertyValue('--rect-l-w')), h: px(styles.getPropertyValue('--rect-l-h')) }
+      };
+
+      const place = (size, minY = margin) => {
+        const maxX = Math.max(margin, vw - size.w - margin);
+        const maxY = Math.max(minY, vh - size.h - margin);
+        return {
+          x: randInt(margin, maxX),
+          y: randInt(minY, maxY),
+          w: size.w,
+          h: size.h
+        };
+      };
+
+      if (fixed) {
+        // Deterministic layout for Playwright.
+        const s1 = { x: 24, y: Math.min(280, vh - 80), ...sizes.s };
+        const s2 = { x: Math.max(24, vw - 140), y: 72, ...sizes.s };
+        const s3 = { x: Math.max(24, vw - 160), y: Math.max(72, vh - 160), ...sizes.s };
+        const m = { x: Math.max(24, vw - 320), y: Math.floor(vh * 0.4), ...sizes.m };
+        const l = { x: Math.max(24, vw - 520), y: Math.floor(vh * 0.72), ...sizes.l };
+
+        setPosPx('--rect-s1', s1.x, s1.y);
+        setPosPx('--rect-s2', s2.x, s2.y);
+        setPosPx('--rect-s3', s3.x, s3.y);
+        setPosPx('--rect-m', m.x, m.y);
+        setPosPx('--rect-l', l.x, l.y);
+        return;
+      }
+
+      // Overlap is allowed (collage feel). Keep a tiny bit of calm at the very top.
+      const topPad = 56;
+      const large = place(sizes.l, topPad);
+      const medium = place(sizes.m, topPad);
+      const s1 = place(sizes.s, topPad);
+      const s2 = place(sizes.s, topPad);
+      const s3 = place(sizes.s, topPad);
+
+      setPosPx('--rect-l', large.x, large.y);
+      setPosPx('--rect-m', medium.x, medium.y);
+      setPosPx('--rect-s1', s1.x, s1.y);
+      setPosPx('--rect-s2', s2.x, s2.y);
+      setPosPx('--rect-s3', s3.x, s3.y);
+    };
+
+    // Run after layout so we can avoid the real content column.
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      requestAnimationFrame(apply);
+    } else {
+      window.addEventListener('DOMContentLoaded', () => requestAnimationFrame(apply), { once: true });
+    }
+
+    // If Astro View Transitions are enabled later, re-randomize on navigation.
+    document.addEventListener('astro:page-load', () => requestAnimationFrame(apply));
+  })();
+})();</script> <main> <article class="reader"> <a class="reader-home" href="/blog/" aria-label="archives로">← archives</a> <h1 data-testid="reader-title" lang="ko">Haruy EP &lt;KAMINA&gt; 가사 번역</h1> <time class="reader-date" data-testid="reader-date" datetime="2026-02-08">2026-02-08</time> <div data-testid="reader-content"> <div class="sp-embed" data-testid="sp-embed"> <iframe src="https://open.spotify.com/embed/album/7MDGxRkQ06saG4NCIQ6ca8" title="Spotify player" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" style="height:352px;"></iframe> </div><h3> 앨범 소개글 </h3><p> 신작 EP &lt;KAMINA&gt;의 테마는 &#39;변화를 긍정하는 것.&#39; 답답한 장소에 계속 머물러 있을 필요는 없고, 오히려 &quot;자신 안의 변화를 받아들여서 즐긴다, 새롭게 다음 스테이지로 향한다&quot;는 마음을 담아낸 작품이다. 이번에 싱글컷된 &#39;BITTERSWEET&#39;는 3번째 EP &lt;Scoop&gt;에 이어 프로듀서 Uin, yuya saito와 함께 제작했다. 그녀의 투명한 목소리가 편안하게 들려오는 곡. 2월 28일(토)에 예정돼 있는 크리에이티브 단체 S.A.R.과의 라이브가 기대된다. </p><h3> 아티스트 코멘트 </h3><p> 울퉁불퉁한 길이나 미로 같은 마음 속을 헤매고, 때로는 어지러울 정도였습니다. 어딘가 가볍고 따뜻한 온기를 가진 작품이 되었다고 생각합니다. 그라임 비트 느낌을 추가해 보거나, 3박자 곡에도 도전했던 이번 EP. 새로운 Haruy의 모습을 꼭 들어주셨으면 해요. 2/28 공연장에서 직접 여러분과 만나는 게 너무 기대됩니다. 새로운 밴드 멤버와 함께하는 라이브를 기대해 주세요! </p><h3> 1. BEGINNING </h3><p> 抱きしめたい、毎日のよう </p><p> 껴안고 싶어, 매일같이 </p><p> ありふれたい 君と今 </p><p> 평범해지고 싶어 너와 함께 지금 </p><p> 歪むface それも上等 </p><p> 찡그린 face 그 모습도 좋아 </p><p> さらう 曇るblue </p><p> 빼앗아 구름 낀 blue </p><p> わがままいうけど </p><p> 제멋대로 말하긴 하지만 </p><p> 大目に見て </p><p> 조금은 눈감아줘 </p><p> 埋めてくカレンダー君とのdays </p><p> 채워지는 달력 너와 함께한 days </p><p> やけに はしゃぐまま </p><p> 유난히 들뜬 채로 </p><p> We driving all night long </p><p> 当てもなく走るただ ただ </p><p> 목적지도 없이 달려가 그냥, 그냥 </p><p> 抱きしめたい、毎日のよう </p><p> 껴안고 싶어, 매일같이 </p><p> ありふれたい 君と今 </p><p> 평범해지고 싶어 너와 함께 지금 </p><h3> 2. BITTERSWEET </h3><p> 見え隠れ してるけど </p><p> 보였다 숨었다 하고 있지만 </p><p> I won&#39;t miss it. </p><p> 知るほどに hide and seekなsight </p><p> 알수록 hide and seek 같은 sight </p><p> まとわるtime まよわずride </p><p> 되감기는 time 망설임 없이 ride </p><p> 触れて my heart 肌を通して今 </p><p> 닿아 my heart 피부를 통해 지금 </p><p> 道のりには見惚れる serendipity </p><p> 여정 속에는 넋을 잃어버린 serendipity </p><p> まとまった話は いらない </p><p> 정리된 이야기는 필요 없어 </p><p> リミナルスペースちょうどいい </p><p> 리미널 스페이스가 적당해 </p><p> 所探す my style </p><p> 자리를 찾는 my style </p><p> 残るは記憶 空っぽの殻 </p><p> 남는 건 기억 텅 빈 껍데기 </p><p> moving on and on </p><p> 見え隠れ してるけど </p><p> 보였다 숨었다 하고 있지만 </p><p> I won&#39;t I miss it </p><p> 知るほどに hide and seekなsight </p><p> 알수록 hide and seek 같은 sight </p><p> まとわるtime まよわずride </p><p> 되감기는 time 망설임 없이 ride </p><p> Lately I feel like ひとりの海星 </p><p> Lately I feel like 고독한 불가사리 </p><p> Sometimes どこか落ち着かない </p><p> Sometimes 어딘가 좀 불안해 </p><p> 押し寄せる波 </p><p> 밀려오는 파도 </p><p> たまに はめ外し oh my </p><p> 가끔은 선을 넘어 oh my </p><p> 気になる Taste そこに ほころぶ </p><p> 신경 쓰이는 Taste 거기서 살짝 풀어져 </p><p> looks like so shine hmm… </p><p> 揺さぶられて また </p><p> 흔들리면서 또 다시 </p><p> moving on and on </p><p> 見え隠れ してるけど </p><p> 보였다 숨었다 하고 있지만 </p><p> I won&#39;t I miss it </p><p> 知るほどに hide and seekなsight </p><p> 알수록 hide and seek 같은 sight </p><p> まとわるtime 限りないsound </p><p> 되감기는 time 끝없는 sound </p><h3> 3. DOWN GLOW </h3><p> 溶け込んだ 夜明けに </p><p> 녹아들어가 새벽 속으로 </p><p> 少しずつ 触れていく mind </p><p> 조금씩 닿아 가는 mind </p><p> Growing heavier 心地よい重さ </p><p> Growing heavier 기분 좋은 무거움 </p><p> 踊る静寂 不思議に </p><p> 춤추는 정적 이상하게도 </p><p> 目を閉じて その身まかせ </p><p> 눈을 감고 그 몸을 맡겨 </p><p> 甘く降る メロディー hmm… </p><p> 달콤하게 쏟아지는 멜로디 hmm... </p><p> 眠れぬ その身 ゆだねて </p><p> 잠들지 못한 이 몸을 맡긴 채로 </p><p> I&#39;m just thinking of you </p><p> とめどなく 灯しはじめる光 </p><p> 끝없이 밝아 오는 빛 </p><p> 追いかける 面影さえ rewind </p><p> 쫓아가는 모습조차 rewind </p><p> 冴えた空気を 含めば </p><p> 맑은 공기를 들이마시면 </p><p> I can handle it </p><p> 贈るテレパシー ふいに </p><p> 보내는 텔레파시 갑자기 </p><p> 目を閉じて その身まかせ </p><p> 눈을 감고 그 몸을 맡겨 </p><p> 甘く降る メロディー hmm… </p><p> 달콤하게 쏟아지는 멜로디 hmm... </p><p> 眠れぬ その身 ゆだねて </p><p> 잠들지 못한 이 몸을 맡긴 채로 </p><p> I&#39;m just thinking of you </p><h3> 4. I MISS YOU </h3><p> Moonlight 見上げても </p><p> Moonlight 올려다 봐도 </p><p> 胸騒ぐ 鼓動 </p><p> 가슴을 어지럽히는 고동 </p><p> 空いた 君のグラスは </p><p> 비어 있는 네 잔은 </p><p> どうも 味気なくて </p><p> 아무래도 따분해 보여 </p><p> ここにいてよ 嘘でもいいから </p><p> 여기 있어 줘 거짓말이라도 좋으니까 </p><p> 今日だけは I want you to be mine </p><p> 오늘만은 I want you to be mine </p><p> ガラスの靴 魔法かけて </p><p> 유리구두 마법을 걸어 줘 </p><p> 溶けぬまま I want you to be mine </p><p> 풀리지 않은 채로 I want you to be mine </p><p> ここにいてよ 嘘でもいいから </p><p> 여기 있어 줘 거짓말이라도 좋으니까 </p><p> 今日だけは I want you to be mine </p><p> 오늘만은 I want you to be mine </p><h3> 5. BEYOND </h3><p> Are we gathered hearts? </p><p> Are we scattered hearts? </p><p> 欠けた影 </p><p> 사라져가는 그림자 </p><p> 慣れた 人間模様 </p><p> 익숙해진 인간 관계 풍경 </p><p> Are we loving ourselves? </p><p> Are we? </p><p> Now we hollow, but still... </p><p> still in my mind </p><p> Don&#39;t fade </p><p> I&#39;m still for you babe with you </p><p> still for you… </p><p> Can you hold me tight now. </p><p> Something that I could do... </p><p> I&#39;ll give you all my love </p><p> still for you oh </p><p> Something that I could do, </p><p> I&#39;ll give you all my love. </p><p> 届かないくらい離れたって </p><p> We could be worth it so much </p> </div> <a class="reader-home" href="/blog/" aria-label="archives로">← archives</a> </article> </main> </body></html>
