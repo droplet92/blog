@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/favicon.ico" sizes="any"><title>HICCUP</title><link rel="stylesheet" href="/blog/_astro/index.D-IOTMtv.css"></head> <body class="page-reader"> <script>(function(){const withRects = false;
+
+  (() => {
+    const root = document.documentElement;
+    const fixed = (globalThis).__E2E_FIXED_BG__ === true;
+
+    const palettes = ['blue', 'plum', 'forest', 'rust'];
+    root.dataset.palette = fixed
+      ? 'blue'
+      : palettes[Math.floor(Math.random() * palettes.length)];
+
+    if (!withRects) return;
+
+    const setPosPx = (name, x, y) => {
+      root.style.setProperty(name + '-x', `${x}px`);
+      root.style.setProperty(name + '-y', `${y}px`);
+    };
+
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+    const apply = () => {
+      const vw = Math.max(320, Math.floor(window.innerWidth || 0));
+      const vh = Math.max(480, Math.floor(window.innerHeight || 0));
+      const margin = 12;
+
+      const px = (value) => {
+        const n = Number.parseFloat(String(value).trim());
+        return Number.isFinite(n) ? n : 0;
+      };
+
+      const styles = getComputedStyle(root);
+      const sizes = {
+        s: { w: px(styles.getPropertyValue('--rect-s-w')), h: px(styles.getPropertyValue('--rect-s-h')) },
+        m: { w: px(styles.getPropertyValue('--rect-m-w')), h: px(styles.getPropertyValue('--rect-m-h')) },
+        l: { w: px(styles.getPropertyValue('--rect-l-w')), h: px(styles.getPropertyValue('--rect-l-h')) }
+      };
+
+      const place = (size, minY = margin) => {
+        const maxX = Math.max(margin, vw - size.w - margin);
+        const maxY = Math.max(minY, vh - size.h - margin);
+        return {
+          x: randInt(margin, maxX),
+          y: randInt(minY, maxY),
+          w: size.w,
+          h: size.h
+        };
+      };
+
+      if (fixed) {
+        // Deterministic layout for Playwright.
+        const s1 = { x: 24, y: Math.min(280, vh - 80), ...sizes.s };
+        const s2 = { x: Math.max(24, vw - 140), y: 72, ...sizes.s };
+        const s3 = { x: Math.max(24, vw - 160), y: Math.max(72, vh - 160), ...sizes.s };
+        const m = { x: Math.max(24, vw - 320), y: Math.floor(vh * 0.4), ...sizes.m };
+        const l = { x: Math.max(24, vw - 520), y: Math.floor(vh * 0.72), ...sizes.l };
+
+        setPosPx('--rect-s1', s1.x, s1.y);
+        setPosPx('--rect-s2', s2.x, s2.y);
+        setPosPx('--rect-s3', s3.x, s3.y);
+        setPosPx('--rect-m', m.x, m.y);
+        setPosPx('--rect-l', l.x, l.y);
+        return;
+      }
+
+      // Overlap is allowed (collage feel). Keep a tiny bit of calm at the very top.
+      const topPad = 56;
+      const large = place(sizes.l, topPad);
+      const medium = place(sizes.m, topPad);
+      const s1 = place(sizes.s, topPad);
+      const s2 = place(sizes.s, topPad);
+      const s3 = place(sizes.s, topPad);
+
+      setPosPx('--rect-l', large.x, large.y);
+      setPosPx('--rect-m', medium.x, medium.y);
+      setPosPx('--rect-s1', s1.x, s1.y);
+      setPosPx('--rect-s2', s2.x, s2.y);
+      setPosPx('--rect-s3', s3.x, s3.y);
+    };
+
+    // Run after layout so we can avoid the real content column.
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      requestAnimationFrame(apply);
+    } else {
+      window.addEventListener('DOMContentLoaded', () => requestAnimationFrame(apply), { once: true });
+    }
+
+    // If Astro View Transitions are enabled later, re-randomize on navigation.
+    document.addEventListener('astro:page-load', () => requestAnimationFrame(apply));
+  })();
+})();</script> <main> <article class="reader"> <a class="reader-home" href="/blog/" aria-label="archives로">← archives</a> <h1 data-testid="reader-title" lang="en">HICCUP</h1> <time class="reader-date" data-testid="reader-date" datetime="2026-02-09">2026-02-09</time> <div data-testid="reader-content"> <p> 내가 좋아하는 음악적 요소가 몇 가지 있다. 하이톤, 빠른 BPM, 브라스, 왈츠 리듬 같은 것들. 이 스트라이크 존을 제대로 파고든 게 이번 Haruy의 I MISS YOU다. 정통 알앤비의 외피에 브레시 보이스 팔세토, 가세하는 일본 특유의 비음, 3박자 구조까지. 발매 이후로 압도적으로 많이 듣고 있는 이유다. 한 발 앞서 올 1월에 가장 많이 들었던 isobel의 limn 또한 왈츠였다. </p><p> 이번에 알게 된 건데, 생각보다 알앤비에는 젬병인 거다. 맨날 컨템포러리 알앤비니 얼터너티브 알앤비니 했지만, 분명 옛날에 알앤비의 태동이나 80년대 알앤비를 공부했던 기억도 있는데, 다 겉핥기 식이라 비어 있는 부분이 너무 많다. 제미나이한테 보컬 테크닉 중심으로 프롬프트를 입력해서 노래를 좀 들어 봤다. 의외로 frank ocean 같은 얼터너티브 계열이나 컨템포러리 계열은 브레시 보이스가 아니었고 팔세토의 신 프린스도 아니었다. 네오소울 계열 중에서도 맥스웰이나 보컬에 한하면 디안젤로 정도? 넵튠스와 cassie의 Kiss Me 같은 노래, 90년대 힙합 소울 비트면서도 Groove Theory나 우타다 히카루처럼 낮은 목소리도 아닌. </p><div class="sp-embed" data-testid="sp-embed"> <iframe src="https://open.spotify.com/embed/track/5YapFTzK50sdZcM6rWuL9M" title="Spotify player" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" style="height:152px;"></iframe> </div><p> 찾다 보니 의외로 일본과 한국의 친근한 아티스트와도 꽤 닮은 구석이 있었다. 작년에 공연도 다녀온 suchmos, killer tune kills me 언저리의 KIRINJI, 싸이월드를 정복했던 프리스타일의 Y도 그렇고 말이다. 그러다 갑자기 프로필 음악에 Haruy가 있었던 게 생각 나서 I MISS YOU로 바꾸려고 보니 조유리의 HICCUP이 같이 있는 걸 발견했다. 유레카! 의외의 장소에서 꼭 닮은 가수를 발견했다. 컨템포러리 알앤비에 브레시 보이스, 팔세토, 비성. 다른 곡으로 가면 Round and Around 같은 왈츠도 있고 (심지어 Op.22 Y-Waltz 시리즈다) 이소라를 닮은 멍 역시 3박자 곡이다. Favorite Part처럼 변형도 있다. </p><p> 조유리한테는 훈련소 후반기 교육장에서 GLASSY 뮤비 보고 한 눈에 반했다. 만날 TV 앞에서 죽치고 앉아 걸그룹 뮤직비디오 삼매경을 보내는 친구들을 모른체 하곤 했는데, 그날은 유독 LED가 밝게 빛났다. 동기한테 &quot;저 단발머리는 누구냐&quot;고 묻자 즉시 &quot;아이즈원 출신 조유리&quot;라는 답변이 돌아왔다. 내 꼭 핸드폰을 받으면 찾아보리. 그렇게 다짐하고 나서도 귀찮아서 며칠이 지난 후에야 네이버에 이름을 검색해봤다. 부산 남구 출신이라고? 어쩜 이런 우연이, 마침 나도 부산 남구로 가는데. </p><p> 팬을 자청하기 시작한 건 자대에 가고 나서였다. 싸지방 유튜브 알고리즘에 이끌려 본 프로듀스101 김민주 편집본에 제대로 감동한 나는 본편을 봐야겠다고 결심했다. 휴가 복귀하면서 프로듀스 101을 핸드폰에 담아 내려가는 KTX편에서부터 봤었던 것 같다. 그리고 김민주 이상의 감동을 조유리에게 받게 되었고 휴식시간마다 단발머리와 글래시 뮤직비디오를 돌려보는 수병으로 진급하고 말았다(...) 때마침 내 친구 또한 생활관에서 글래시 뮤비를 100번은 족히 넘게 반복 재생했던 훌륭한 아쎄이였다. 여기에 기타 치는 친구까지 끌어들여 율랑단 트리오를 결성하기에 이르렀다. </p><div class="yt-embed" data-testid="yt-embed"> <iframe src="https://www.youtube-nocookie.com/embed/AQt4K08L_m8" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> </div><p> 관심 없는 것에는 절대 눈길을 안 주지만, 한 번 관심이 생기면 걷잡을 수가 없어진다. 휴가 나와서 앨범 드래곤볼하기, 컴백 음방 쫓아다니기, 생일카페 가기, 외출 나와서 성지순례(?)하기... 다소 역겨워 보일 수 있다. 인정한다. 하지만 어디까지나 팬으로서 노래가 좋아서, 사람이 좋아서 그랬을 뿐이라고 선을 긋는다. (나는 내꺼충이 아니다.) </p><figure class="reader-image" data-testid="reader-image"> <img src="/blog/posts/hiccup/img01.jpg" alt="JOYURI IZ*ONE Albums" loading="lazy" decoding="async"> <figcaption>아이즈원 팬이었던 친구의 도움으로 엑조디아 완성</figcaption> </figure><figure class="reader-image" data-testid="reader-image"> <img src="/blog/posts/hiccup/img02.jpg" alt="fighting" loading="lazy" decoding="async"> <figcaption>아마 남포동 어딘가</figcaption> </figure><figure class="reader-image" data-testid="reader-image"> <img src="/blog/posts/hiccup/img03.jpg" alt="Love Shhh" loading="lazy" decoding="async"> <figcaption>첫 음방 1위를 했던 러브 쉿!</figcaption> </figure><figure class="reader-image" data-testid="reader-image"> <img src="/blog/posts/hiccup/img04.jpg" alt="B-day cafe" loading="lazy" decoding="async"> <figcaption>친구 끌고 간 생일카페</figcaption> </figure><p> 한때는 버블 답장해줬다고 좋아하고 미미쿠스 연기 너무 잘하는데 꼭 보라고 홍보하고 다니고 그랬는데, 기나긴 비활동기와 한 달에 한 번 찾아오는 치---타같은 레이턴시에 지고 말았다. 이제는 오징어게임에도 나오고 올해 또 이창동 감독의 가능한 사랑에 나올 예정인 대배우가 되었다. 너무 멀게 느껴진다. 그래도 내 힘든 군생활 절반을 책임져 줬던 고마운 사람. 앞이 보이지 않던 깜깜한 날이면 언젠가 우리의 밤도 지나갈 거라며 위로해 줬던 사람. 첫 단콘 하는 날에 꼭 찾아갈 거야. </p><div class="sp-embed" data-testid="sp-embed"> <iframe src="https://open.spotify.com/embed/track/6BMNPNij62XvOMQF5BPGym" title="Spotify player" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" style="height:152px;"></iframe> </div> </div> <a class="reader-home" href="/blog/" aria-label="archives로">← archives</a> </article> </main> </body></html>
