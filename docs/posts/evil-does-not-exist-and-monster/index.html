@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/favicon.ico" sizes="any"><title>&lt;악은 존재하지 않는다&gt;와 &lt;괴물&gt;을 보고</title><link rel="stylesheet" href="/blog/_astro/index.D-IOTMtv.css"></head> <body class="page-reader"> <script>(function(){const withRects = false;
+
+  (() => {
+    const root = document.documentElement;
+    const fixed = (globalThis).__E2E_FIXED_BG__ === true;
+
+    const palettes = ['blue', 'plum', 'forest', 'rust'];
+    root.dataset.palette = fixed
+      ? 'blue'
+      : palettes[Math.floor(Math.random() * palettes.length)];
+
+    if (!withRects) return;
+
+    const setPosPx = (name, x, y) => {
+      root.style.setProperty(name + '-x', `${x}px`);
+      root.style.setProperty(name + '-y', `${y}px`);
+    };
+
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+    const apply = () => {
+      const vw = Math.max(320, Math.floor(window.innerWidth || 0));
+      const vh = Math.max(480, Math.floor(window.innerHeight || 0));
+      const margin = 12;
+
+      const px = (value) => {
+        const n = Number.parseFloat(String(value).trim());
+        return Number.isFinite(n) ? n : 0;
+      };
+
+      const styles = getComputedStyle(root);
+      const sizes = {
+        s: { w: px(styles.getPropertyValue('--rect-s-w')), h: px(styles.getPropertyValue('--rect-s-h')) },
+        m: { w: px(styles.getPropertyValue('--rect-m-w')), h: px(styles.getPropertyValue('--rect-m-h')) },
+        l: { w: px(styles.getPropertyValue('--rect-l-w')), h: px(styles.getPropertyValue('--rect-l-h')) }
+      };
+
+      const place = (size, minY = margin) => {
+        const maxX = Math.max(margin, vw - size.w - margin);
+        const maxY = Math.max(minY, vh - size.h - margin);
+        return {
+          x: randInt(margin, maxX),
+          y: randInt(minY, maxY),
+          w: size.w,
+          h: size.h
+        };
+      };
+
+      if (fixed) {
+        // Deterministic layout for Playwright.
+        const s1 = { x: 24, y: Math.min(280, vh - 80), ...sizes.s };
+        const s2 = { x: Math.max(24, vw - 140), y: 72, ...sizes.s };
+        const s3 = { x: Math.max(24, vw - 160), y: Math.max(72, vh - 160), ...sizes.s };
+        const m = { x: Math.max(24, vw - 320), y: Math.floor(vh * 0.4), ...sizes.m };
+        const l = { x: Math.max(24, vw - 520), y: Math.floor(vh * 0.72), ...sizes.l };
+
+        setPosPx('--rect-s1', s1.x, s1.y);
+        setPosPx('--rect-s2', s2.x, s2.y);
+        setPosPx('--rect-s3', s3.x, s3.y);
+        setPosPx('--rect-m', m.x, m.y);
+        setPosPx('--rect-l', l.x, l.y);
+        return;
+      }
+
+      // Overlap is allowed (collage feel). Keep a tiny bit of calm at the very top.
+      const topPad = 56;
+      const large = place(sizes.l, topPad);
+      const medium = place(sizes.m, topPad);
+      const s1 = place(sizes.s, topPad);
+      const s2 = place(sizes.s, topPad);
+      const s3 = place(sizes.s, topPad);
+
+      setPosPx('--rect-l', large.x, large.y);
+      setPosPx('--rect-m', medium.x, medium.y);
+      setPosPx('--rect-s1', s1.x, s1.y);
+      setPosPx('--rect-s2', s2.x, s2.y);
+      setPosPx('--rect-s3', s3.x, s3.y);
+    };
+
+    // Run after layout so we can avoid the real content column.
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      requestAnimationFrame(apply);
+    } else {
+      window.addEventListener('DOMContentLoaded', () => requestAnimationFrame(apply), { once: true });
+    }
+
+    // If Astro View Transitions are enabled later, re-randomize on navigation.
+    document.addEventListener('astro:page-load', () => requestAnimationFrame(apply));
+  })();
+})();</script> <main> <article class="reader"> <a class="reader-home" href="/blog/" aria-label="archives로">← archives</a> <h1 data-testid="reader-title" lang="ko">&lt;악은 존재하지 않는다&gt;와 &lt;괴물&gt;을 보고</h1> <time class="reader-date" data-testid="reader-date" datetime="2026-02-21">2026-02-21</time> <div data-testid="reader-content"> <p> 지난번 러브레터 글에서 했던 이야기를 갱신해야겠다. 나는 드디어 오늘 하마구치 류스케 감독의 &lt;악은 존재하지 않는다&gt;를 끝까지 봤고, 고레에다 히로카즈 감독의 &lt;괴물&gt;도 봤다. 왠지모르게 오늘 아침엔 눈이 일찍 떠 졌고 이것저것해도 오후가 오지 않자 영화를 보기로 마음먹은 것이다. 최근 회사에서 &lt;괴물&gt;을 꼭 보라는 얘기를 듣기도 했고. 결론적으로 악존않은 내 취향은 아니었고 괴물은 재미있었다. </p><p> 악존않에 대해 먼저 이야기하자면 이미 앞부분 1시간 정도를 봤기 때문에 뒷부분만 이어서 봤다. 다행히도 앞 내용이 어느 정도 생각이 났고 끊겼던 부분도 딱 전반부/후반부를 나누는 포인트였어서 놓친 부분은 없었다고 생각한다. 그놈의 결말이 궁금했고, 결말을 봤고, 당황했고, 이렇게 저렇게 해석해보고 다른 사람 글도 찾아봤는데 역시 내 스타일은 아니었다. 하마구치 류스케 감독의 작품은 &lt;아사코&gt;, &lt;드라이브 마이 카&gt;, 그리고 이번 영화로 3편밖에 안 봤지만, 공통적으로 갑작스러운 변화에 주인공을 두고 그것을 어떻게 풀어나가는지에 대한 이야기를 쓰는 감독인 것 같다. 동일본 대지진의 영향인 듯하고. 사람들은 뒤로 갈 수록 거장이 됐다고 찬사를 보내는데 나는 뒤로 갈 수록 재미없었다(...) 내 지론이 한 가지 있다면 작품에는 포인트를 한 가지만 줘야 한다는 건데, 그래야 이해도 쏙쏙 되고 재미있다고 생각해서다. &lt;아사코&gt;에서 포인트를 잡아본다면 물론 카라타 에리카나 후반부 그림자 연출 같은 게 있겠지만, 역시 동일본 대지진일 것이다. 러브스토리+재해. 드마카는 연극+위로, 악존않은 자연+인간? 좀 애매한데. 아무튼 그의 영화는 두 평행선이 교차하는 지점이 핵심이다. 지금까지 본 바로는. </p><p> 결국 교차점에서 재미가 갈린다. 아사코는 은유적인 방식과 촬영, 그리고 갈대 같은 아사코의 마음이 어디로 기울지를 조마조마하면서 봤기에 재미있었고 드라이브 마이 카는 카타르시스는 있었지만 시선 처리나 대사 처리가 연극 같아서 작위적이라고 생각했다. 이번 악은 존재하지 않는다는 비직관적인 방식을 썼고 그렇다고 내용이 대단하다는 느낌도 못 받았다. 앞선 두 영화와 이번 영화에 차이가 있다면 아사코와 드마카에서 일어난 갑작스러운 재난은 인간이 한 게 아니지만, 악존않은 인간이 인간을 해하고 있기 때문이다. 열심히 해보려는 사람한테 잘 알지도 못한다고 핀잔이나 주고 말이야... 안 되면 안 된다 왜 안 된다 딱 말해주면 될 것을 굳이 굳이. </p><p> 괴물 이야기로 넘어가면 대충 스포는 진작에 봤는데 감상에 큰 방해가 되진 않았다. 약간 언제 나오는 거지? 정도. 시점(중의적 의미)을 변화시킬 때마다 새롭게 보이는 내용이 있고 실마리가 풀려나가면서 결론에 이르는 각본이 좋았다. 작품은 언뜻 &#39;돼지의 뇌를 가지고 있다&#39;는 소리를 듣는, 스스로 하는 두 초등학생을 &#39;괴물&#39;이라고 지칭하는 것처럼 보이지만, 조금 더 멀리서 보면 작중에서 쓰레기 취급 받는 사람들 모두를 지칭하는 표현임을 알 수 있다. 엄마는 학교에서 악성 학부모 소리를 들었고 교사는 엔자이를 뒤집어썼으며 교장마저도 좋은 인물이라고 하긴 어렵지만 동시에 유일하게 아이를 도와준 사람이자 교사를 살려낸 사람이 됐으니. 이해 받지 못한 사람들을 너무 쉽게 남으로 취급하고 괴물이라 이름붙히진 않았나 생각해보게 만드는 영화. </p><p> 회사 동료가 자기한테는 5점인데 이동진 4.5밖에 안 줬다, 근데 한줄평을 잘 써서 인정한다고 해서 영화 끝나고 찾아보니까 확실히 그 말이 맞더라. 영화는 이야기가 있고 시각 예술이라서 한줄평 쓰기 쉬울 거라고만 막연히 생각했는데 한 번 쭉 보니까 괴물이랑 아사코 한줄평만 봐도 누가 영화를 제대로 보고 일목요연하게 표현하는 지를 알 수 있더라. 이동진 씨처럼 되고 싶은 생각은 여전히 없지만! </p><div class="sp-embed" data-testid="sp-embed"> <iframe src="https://open.spotify.com/embed/track/187ccI2WlhO8IRSwACHome" title="Spotify player" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" style="height:152px;"></iframe> </div> </div> <a class="reader-home" href="/blog/" aria-label="archives로">← archives</a> </article> </main> </body></html>

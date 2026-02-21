@@ -1,4 +1,11 @@
-export type PostTopic = 'music' | 'game' | 'dev' | 'translation';
+export const POST_TOPICS = [
+  'music',
+  'game',
+  'dev',
+  'translation',
+  'movie'
+] as const;
+export type PostTopic = (typeof POST_TOPICS)[number];
 
 export type Post = {
   slug: string;
@@ -16,8 +23,12 @@ type Frontmatter = {
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
+function isPostTopic(value: unknown): value is PostTopic {
+  return typeof value === 'string' && (POST_TOPICS as readonly string[]).includes(value);
+}
+
 function coerceTopic(value: unknown): PostTopic {
-  if (value === 'music' || value === 'game' || value === 'dev' || value === 'translation') return value;
+  if (isPostTopic(value)) return value;
   return 'dev';
 }
 

@@ -1,13 +1,6 @@
-type PostMeta = {
-  slug: string;
-  title: string;
-  topic: 'music' | 'game' | 'dev' | 'translation';
-  date: string; // YYYY-MM-DD
-};
-
-export type YearGroup = {
+export type YearGroup<T extends { date: string } = { date: string }> = {
   year: number;
-  posts: PostMeta[];
+  posts: T[];
 };
 
 export type EmptyTimeBar = {
@@ -21,9 +14,9 @@ const toDate = (value: string) => new Date(`${value}T00:00:00Z`);
 const sortByDateDesc = <T extends { date: string }>(items: T[]) =>
   [...items].sort((a, b) => toDate(b.date).getTime() - toDate(a.date).getTime());
 
-export const groupByYear = (posts: PostMeta[]): YearGroup[] => {
+export const groupByYear = <T extends { date: string }>(posts: T[]): YearGroup<T>[] => {
   const sorted = sortByDateDesc(posts);
-  const map = new Map<number, PostMeta[]>();
+  const map = new Map<number, T[]>();
 
   for (const post of sorted) {
     const year = toDate(post.date).getUTCFullYear();
@@ -37,11 +30,11 @@ export const groupByYear = (posts: PostMeta[]): YearGroup[] => {
     .map(([year, grouped]) => ({ year, posts: grouped }));
 };
 
-export const buildRecentList = (posts: PostMeta[], count = 3): PostMeta[] => {
+export const buildRecentList = <T extends { date: string }>(posts: T[], count = 3): T[] => {
   return sortByDateDesc(posts).slice(0, count);
 };
 
-export const computeEmptyTimeBars = (posts: PostMeta[]): EmptyTimeBar[] => {
+export const computeEmptyTimeBars = <T extends { date: string }>(posts: T[]): EmptyTimeBar[] => {
   const sorted = sortByDateDesc(posts);
   const bars: EmptyTimeBar[] = [];
 

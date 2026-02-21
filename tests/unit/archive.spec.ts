@@ -1,10 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import { buildRecentList } from '../../src/lib/archive';
+import type { PostTopic } from '../../src/lib/posts';
 
 type PostMeta = {
   slug: string;
   title: string;
-  topic: 'music' | 'game' | 'dev' | 'translation';
+  topic: PostTopic;
   date: string; // YYYY-MM-DD
 };
 
