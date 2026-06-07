@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/favicon.ico" sizes="any"><title>아오야마 신지 &lt;유레카&gt;</title><link rel="stylesheet" href="/blog/_astro/global.D-IOTMtv.css"></head> <body class="page-reader"> <script>(function(){const withRects = false;
+
+  (() => {
+    const root = document.documentElement;
+    const fixed = (globalThis).__E2E_FIXED_BG__ === true;
+
+    const palettes = ['blue', 'plum', 'forest', 'rust'];
+    root.dataset.palette = fixed
+      ? 'blue'
+      : palettes[Math.floor(Math.random() * palettes.length)];
+
+    if (!withRects) return;
+
+    const setPosPx = (name, x, y) => {
+      root.style.setProperty(name + '-x', `${x}px`);
+      root.style.setProperty(name + '-y', `${y}px`);
+    };
+
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+    const apply = () => {
+      const vw = Math.max(320, Math.floor(window.innerWidth || 0));
+      const vh = Math.max(480, Math.floor(window.innerHeight || 0));
+      const margin = 12;
+
+      const px = (value) => {
+        const n = Number.parseFloat(String(value).trim());
+        return Number.isFinite(n) ? n : 0;
+      };
+
+      const styles = getComputedStyle(root);
+      const sizes = {
+        s: { w: px(styles.getPropertyValue('--rect-s-w')), h: px(styles.getPropertyValue('--rect-s-h')) },
+        m: { w: px(styles.getPropertyValue('--rect-m-w')), h: px(styles.getPropertyValue('--rect-m-h')) },
+        l: { w: px(styles.getPropertyValue('--rect-l-w')), h: px(styles.getPropertyValue('--rect-l-h')) }
+      };
+
+      const place = (size, minY = margin) => {
+        const maxX = Math.max(margin, vw - size.w - margin);
+        const maxY = Math.max(minY, vh - size.h - margin);
+        return {
+          x: randInt(margin, maxX),
+          y: randInt(minY, maxY),
+          w: size.w,
+          h: size.h
+        };
+      };
+
+      if (fixed) {
+        // Deterministic layout for Playwright.
+        const s1 = { x: 24, y: Math.min(280, vh - 80), ...sizes.s };
+        const s2 = { x: Math.max(24, vw - 140), y: 72, ...sizes.s };
+        const s3 = { x: Math.max(24, vw - 160), y: Math.max(72, vh - 160), ...sizes.s };
+        const m = { x: Math.max(24, vw - 320), y: Math.floor(vh * 0.4), ...sizes.m };
+        const l = { x: Math.max(24, vw - 520), y: Math.floor(vh * 0.72), ...sizes.l };
+
+        setPosPx('--rect-s1', s1.x, s1.y);
+        setPosPx('--rect-s2', s2.x, s2.y);
+        setPosPx('--rect-s3', s3.x, s3.y);
+        setPosPx('--rect-m', m.x, m.y);
+        setPosPx('--rect-l', l.x, l.y);
+        return;
+      }
+
+      // Overlap is allowed (collage feel). Keep a tiny bit of calm at the very top.
+      const topPad = 56;
+      const large = place(sizes.l, topPad);
+      const medium = place(sizes.m, topPad);
+      const s1 = place(sizes.s, topPad);
+      const s2 = place(sizes.s, topPad);
+      const s3 = place(sizes.s, topPad);
+
+      setPosPx('--rect-l', large.x, large.y);
+      setPosPx('--rect-m', medium.x, medium.y);
+      setPosPx('--rect-s1', s1.x, s1.y);
+      setPosPx('--rect-s2', s2.x, s2.y);
+      setPosPx('--rect-s3', s3.x, s3.y);
+    };
+
+    // Run after layout so we can avoid the real content column.
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      requestAnimationFrame(apply);
+    } else {
+      window.addEventListener('DOMContentLoaded', () => requestAnimationFrame(apply), { once: true });
+    }
+
+    // If Astro View Transitions are enabled later, re-randomize on navigation.
+    document.addEventListener('astro:page-load', () => requestAnimationFrame(apply));
+  })();
+})();</script> <main> <article class="reader"> <a class="reader-home" href="/blog/" aria-label="archives로">← archives</a> <h1 data-testid="reader-title" lang="ko">아오야마 신지 &lt;유레카&gt;</h1> <time class="reader-date" data-testid="reader-date" datetime="2026-06-07">2026-06-07</time> <div data-testid="reader-content"> <p> !스포위험! </p><p> 상영 시간이 3시간 40분? 정도 되는 건 알고 갔지만, 역시 저녁 8시 40분에 시작한 영화가 다음날 0시 28분에 끝나는 건 힘들다! 중간에 시간을 3번이나 봤다. 이 영화가 무슨 영화인지에 대한 사전지식이 전무한 상태로 봤고, 아 로드 뮤비라고 들었는데 막상 로드를 달리는 건 2시간이 넘은 시점에서였다. </p><p> 이런 영화를 볼 때마다 느끼는 거지만, 생각보다 내용이 이해가 안 되는 것도 아니고, 물론 놓치는 부분이 없진 않겠다만, 애초에 내용이랄게 막 많이 담겨 있는 것도 없고 (보통 주제는 하나니) 아무튼 뭔 내용인지는 적당히 이해했으나, 평론가들의 극찬에 &#39;그정돈가?&#39;를 무심코 내뱉고 만다. 긴 인내를 보상할 만큼의 감정적 변화가 없었다. 수시로 등장하는 롱테이크와 카메라 워크가 매번 인상적이었지만, 생각할 만한 주제나 즉각적인 감동이 없었기 때문에 돌고 돌아 결론은 그정둔가다. </p><p> 긴 러닝타임을 이끌어 가는 내용은 &#39;연쇄살인&#39;이다. 이야기의 발단이 되는 버스 하이재킹 사건은 전체 러닝타임의 아주 일부밖에 되지 않는다. 한 20분 정도? 범인의 정체가 드러나는 순간, 나오키는 &#39;왜 죽이면 안 되는 거냐&#39;고 묻는다. 그러자 사와이는 &#39;죽이면 안 된다고 한 적 없다&#39;고 답한다. 그러니까, 나오키는 사실 죽이면 안 된다는 걸 알고 있다. &#39;왜&#39;를 모를 뿐이다. 나오키는 버스 하이재킹에 휘말려 눈앞에서 6명이 죽는 걸 목격했고, 본인 또한 죽을 뻔했다. 납치범도 사람을 죽이고 경찰도 사람을 죽인다. (사건 당시 나오키는 중학생이었지만) 어린 아이들은 PTSD 상황을 겪고 나면 그 충격을 이해할 수 없어서 상황을 재현시켜봄으로써 객관적으로 이해하려 한다고 한다. 나오키의 연쇄 살인은 사람을 죽임으로써 자신이 겪었던 버스 하이재킹을, 사람을 죽여선 안되는 이유를 이해하려고 한 게 아닐까. </p><p> 영화는 어른스러운 방식으로 이 질문에 답을 준다. 사와이는 이어서 가장 소중한 사람을 죽이러 가자, 코즈에를 죽이러 가자고 말한다. 이 말을 나오키는 긍정하지 못한다. 질문에 대해 답변을 주는 게 아니라 스스로 답변을 찾을 수 있도록 해 주는 것이다. 이 시대의 참어른... </p><p> 올해 첫 영화관 후기 끝. 앞으로 예정된 건 &lt;호프&gt;랑 &lt;룩 백&gt; 정도려나. </p> </div> <a class="reader-home" href="/blog/" aria-label="archives로">← archives</a> </article> </main> </body></html>
