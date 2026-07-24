@@ -78,10 +78,10 @@ function slugFromPath(path: string): string {
   return file.replace(/\.(md|txt)$/i, '');
 }
 
-const files = import.meta.glob('../../post/*.{md,txt}', { as: 'raw' }) as Record<
-  string,
-  () => Promise<string>
->;
+const files = import.meta.glob('../../post/*.{md,txt}', {
+  query: '?raw',
+  import: 'default'
+}) as Record<string, () => Promise<string>>;
 
 const loaderBySlug: Record<string, () => Promise<string>> = Object.create(null);
 for (const [path, loader] of Object.entries(files)) {
