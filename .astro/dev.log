@@ -1,0 +1,52 @@
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"Generated 1ms","label":"types","level":"info"}
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"Re-optimizing dependencies because vite config has changed","label":"vite","level":"info"}
+{"message":" astro  v7.1.3 ready in 2743 ms\n┃ Local    http://localhost:4321/blog\n┃ Network  use --host to expose","label":"SKIP_FORMAT","level":"info"}
+{"message":"watching for file changes...","label":null,"level":"info"}
+{"message":"Request URLs for public/ assets must also include your base. \"/blog/favicon.ico\" expected, but received \"/favicon.ico\".","label":"router","level":"error"}
+{"message":"[200] / 63ms","label":null,"level":"info"}
+{"message":"[200] /posts/1h26mv 8ms","label":null,"level":"info"}
+{"message":"[200] / 3ms","label":null,"level":"info"}
+{"message":"[200] /posts/1h26mv 2ms","label":null,"level":"info"}
+{"message":"[200] /posts/1h26mv 9ms","label":null,"level":"info"}
+{"message":"[200] /posts/1h26mv 8ms","label":null,"level":"info"}
+{"message":"[200] /posts/1h26mv 6ms","label":null,"level":"info"}
+{"message":"docs/404.html","label":"watch","level":"info"}
+{"message":"docs/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/1h26/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/alternative-idols/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/asako/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/eureka/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/evil-does-not-exist-and-monster/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/catharsis/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/good-luck/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/haruy-kamina/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/hiccup/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/kayoko-yoshizawa/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/love-letter/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/platform-invoke/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/pinball/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/ray-asia-tour-2024-korea/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/schezade/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/suisei/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/understand-you/index.html","label":"watch","level":"info"}
+{"message":"docs/404.html","label":"watch","level":"info"}
+{"message":"docs/posts/1h26mv/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/alternative-idols/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/asako/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/hiccup/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/kayoko-yoshizawa/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/catharsis/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/love-letter/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/suisei/index.html","label":"watch","level":"info"}
+{"message":"docs/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/understand-you/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/eureka/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/evil-does-not-exist-and-monster/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/good-luck/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/haruy-kamina/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/platform-invoke/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/pinball/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/schezade/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/ray-asia-tour-2024-korea/index.html","label":"watch","level":"info"}
