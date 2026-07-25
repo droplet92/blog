@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/favicon.ico" sizes="any"><title>상반기 일본 디깅</title><link rel="stylesheet" href="/blog/_astro/global.8jKhaTdS.css"></head><body class="page-reader"><script>(function(){const withRects = false;
+
+  (() => {
+    const root = document.documentElement;
+    const fixed = (globalThis).__E2E_FIXED_BG__ === true;
+
+    const palettes = ['blue', 'plum', 'forest', 'rust'];
+    root.dataset.palette = fixed
+      ? 'blue'
+      : palettes[Math.floor(Math.random() * palettes.length)];
+
+    if (!withRects) return;
+
+    const setPosPx = (name, x, y) => {
+      root.style.setProperty(name + '-x', `${x}px`);
+      root.style.setProperty(name + '-y', `${y}px`);
+    };
+
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+    const apply = () => {
+      const vw = Math.max(320, Math.floor(window.innerWidth || 0));
+      const vh = Math.max(480, Math.floor(window.innerHeight || 0));
+      const margin = 12;
+
+      const px = (value) => {
+        const n = Number.parseFloat(String(value).trim());
+        return Number.isFinite(n) ? n : 0;
+      };
+
+      const styles = getComputedStyle(root);
+      const sizes = {
+        s: { w: px(styles.getPropertyValue('--rect-s-w')), h: px(styles.getPropertyValue('--rect-s-h')) },
+        m: { w: px(styles.getPropertyValue('--rect-m-w')), h: px(styles.getPropertyValue('--rect-m-h')) },
+        l: { w: px(styles.getPropertyValue('--rect-l-w')), h: px(styles.getPropertyValue('--rect-l-h')) }
+      };
+
+      const place = (size, minY = margin) => {
+        const maxX = Math.max(margin, vw - size.w - margin);
+        const maxY = Math.max(minY, vh - size.h - margin);
+        return {
+          x: randInt(margin, maxX),
+          y: randInt(minY, maxY),
+          w: size.w,
+          h: size.h
+        };
+      };
+
+      if (fixed) {
+        // Deterministic layout for Playwright.
+        const s1 = { x: 24, y: Math.min(280, vh - 80), ...sizes.s };
+        const s2 = { x: Math.max(24, vw - 140), y: 72, ...sizes.s };
+        const s3 = { x: Math.max(24, vw - 160), y: Math.max(72, vh - 160), ...sizes.s };
+        const m = { x: Math.max(24, vw - 320), y: Math.floor(vh * 0.4), ...sizes.m };
+        const l = { x: Math.max(24, vw - 520), y: Math.floor(vh * 0.72), ...sizes.l };
+
+        setPosPx('--rect-s1', s1.x, s1.y);
+        setPosPx('--rect-s2', s2.x, s2.y);
+        setPosPx('--rect-s3', s3.x, s3.y);
+        setPosPx('--rect-m', m.x, m.y);
+        setPosPx('--rect-l', l.x, l.y);
+        return;
+      }
+
+      // Overlap is allowed (collage feel). Keep a tiny bit of calm at the very top.
+      const topPad = 56;
+      const large = place(sizes.l, topPad);
+      const medium = place(sizes.m, topPad);
+      const s1 = place(sizes.s, topPad);
+      const s2 = place(sizes.s, topPad);
+      const s3 = place(sizes.s, topPad);
+
+      setPosPx('--rect-l', large.x, large.y);
+      setPosPx('--rect-m', medium.x, medium.y);
+      setPosPx('--rect-s1', s1.x, s1.y);
+      setPosPx('--rect-s2', s2.x, s2.y);
+      setPosPx('--rect-s3', s3.x, s3.y);
+    };
+
+    // Run after layout so we can avoid the real content column.
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      requestAnimationFrame(apply);
+    } else {
+      window.addEventListener('DOMContentLoaded', () => requestAnimationFrame(apply), { once: true });
+    }
+
+    // If Astro View Transitions are enabled later, re-randomize on navigation.
+    document.addEventListener('astro:page-load', () => requestAnimationFrame(apply));
+  })();
+})();</script><main><article class="reader"><a class="reader-home" href="/blog/" aria-label="archives로">← archives</a><h1 data-testid="reader-title" lang="ko">상반기 일본 디깅</h1><time class="reader-date" data-testid="reader-date" datetime="2026-07-25">2026-07-25</time><div data-testid="reader-content"><p>올해 상반기 일본 디깅 기록.</p><h3>베스트 6</h3><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/NNLAY3y-tPo" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>캐나다에서 이거 리뷰 쓰다가 1시간정도 쳐 울었음... 유튜브 알고리즘에 걸린 라이브 영상 보자마자 픽하는 걸 넘어서 밀어야 한다고 생각했고, 내가 알기론 본격적인 인터뷰를 내가 가장 먼저 했을 거임. 내가 선구안은 자신 있는 편인데, 이렇게 빨리 뜰 줄은 몰랐음. 내 리뷰랑 인터뷰 보고 들어봤는데 너무 좋았다는 사람을 봐서 좋았음. 내가 할 수 있는 거라곤 좋아하는 아티스트 국내팬 늘려서 내한 공연 성사시키기 정도밖에 없다...</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/r8HiGkOCH_k" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>한때 몬도 그로소와 미츠시마 히카리의 협업곡들에 빠져 있었는데, 이번엔 cero와 함께한 곡. 레코드 스톡 2026 재팬 기념 콜라보레이션이고 (앨범 커버가 손흥민 샤라웃이고) 비가 추적이는 날 듣기 좋음. 난 미츠시마 히카리가 원래 배우였는지도 몰랐고 러브 익스포저에서 실력을 인증받은 꽤나 유명한 배우인 줄도 아예 몰랐음. 이렇게 노래를 잘 하는데 아이돌 망하고 배우로 성공했다고?</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/bnfTV4BRqX4" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>내 계산으로는 진작 떴어야 했는데 아직도 안 뜬 타데쿠이. 리뷰에서도 언급한 바 있지만 기본적으로는 블랙 컨트리, 뉴 로드나 아케이드 파이어 계열로 볼 수 있고 앨범 전체적으로는 보다 다양한 장르를 시도하는데 뭔가 뭔가 홋카이도스러운 느낌이 있음. 내 안의 홋카이도스러움이란 대충 음악을 잘 한다는 뜻인데 갈릴레오 갈릴레이, 주디 앤 마리, 필로우즈, 사카낙션 같은 유명한 이름부터 이노우에 타쿠, 시바타 사토코, 타케다 리사, 아베 후유미, LAUSBUB, PARKGOLF, 나카노 미호, 후루이 리호, 미우라 토코 등등 실력 있는 새로운 이름들이 즐비한 동네라고 생각하기 때문임. 거기에 왠지 모르게 쓸쓸함이나 차가움 혹은 밝음 같은 것이 있어서 혹시? 하고 보면 역시! 하는 경우가 많았음. 타데쿠이도 나의 &#39;홋카이도는 음악을 잘 한다&#39;는 고정관념을 강하게 만들어준 밴드 중 하나.</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/oZPiskvDlTo" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>리틀 글리 몬스터 출신의 마나카가 킴제이, 세비와 손을 잡고 힙합과 팝 사이를 오감. 그것도 아주 자유자재로. 에피 E에서는 사실 인상적이지 않았는데, 본인 1집에서 Bad+Sad Boi로 이런 식의 팝 사운드 소화력을 보여주더니, Look At Me Now에 이르러서는 완전히 만개한 게 아닌가 싶음. 다른 작업물들은 좀 별로긴 한데, 킴제이 세비랑 아주 잘 맞는듯. 시간 되면 my unnies 가입하길.</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/zO1C_DTMK2E" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>유아미가 무슨 뜻일까 궁금해했는데 쇼츠를 보니까 You Are Me 인 것 같더라. 변화한 블루메 포포 사운드가 상상 이상으로 따스하게 다가오는 와중, 후반부에서 미코와 단의 보컬이 평행하게 가는 모습이 인상적이었음. AVYSS가 레이블 설립하고 야심차게 낸 첫 번째 컴필 듣고 한동안 실망했는데, 요번에 나온 컴필은 다 괜찮았고, 특히 이 노래를 가장 많이 듣는듯. 사적인 연은... 아마도 없음. 아 언제 라이브 보러 가야 하는데. 포포도 인터뷰했었고 개인적으로 바빴을 때였지만, 애정이 있는 밴드라서 + 하이퍼포커스 발동해서 개열심히 준비했는데 최근에 잘 읽었다는 사람을 봐서 뿌듯했음.</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/hgKssjhd8vo" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>라이브 영상 보면 진짜 빈말로도 diig 보컬이 좋다고 못하겠는데, 오토튠으로 잔뜩 보정하고 나면 음색은 그래도 괜찮은 것 같음. 데뷔 앨범 내자마자 moreru랑 콜라보할 줄은 몰랐는데, 그 곡도 소화력보면 흠... 리뷰 쓰면서 엄청 들었기 때문에 그 이후론 잘 안 듣는데, 여전히 괜찮은 앨범이라고 생각함. 이런 건 지하돌이나 할 수 있는 거라고 생각했는데, 최근 아르테미스 뮤비랑 영파씨 &#39;x됐으면 해 니가&#39; 같은 가사 보면 아이돌 팝의 영역이 조금씩 넓어지는 것 같기도 하고.</p><h3>재패니즈 케이팝</h3><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/D8nbLBOQxwg" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>프로듀스 101 재팬에서 결성된 그룹. 케이팝 뮤직비디오를 클릭했더니 일본어가 나오는 이상한 경험을 요즘 많이 받고 있음. 그중에서 미아이한테는 독보적인 무언가가 있는 것 같음. 팬클럽은 아니지만 노래 나올 때마다 찾아들음. 정규 1집이 진짜 좋았는데 그 이후에 4명이나 탈퇴해서 아쉬움. 그 이후로도 음악력은 유지되는듯? 나는 카와이 라보 계열보다 이쪽이 더 끌림.</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/RkC-XfuwCsM" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>이 팀도 프로듀스 101 재팬 파생팀. 미아이의 후배 그룹? 현악은 그냥 치트키임. 케이팝은 주로 전자음악 베이스인 반면, 제이팝은 관현악도 많이 사용하기 때문에 더 풍부한 소리를 즐길 수 있음. 학창시절 잘해야 밴드부인 한국에 비해 경음부와 취주악부 투트랙에 클래식 풀도 넓은 일본이라서 가능한 게 아닐까 생각함.</p><h3>기대주</h3><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/FU7lfp6mrag" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>샤요즈. 올해 초에 발견한 미친 밴드. 작년 정규 미쳤고 올해 이 싱글도 좋음. 이번에 후지락에도 나간듯. 제발 들어줘~~</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/tuybDd20nVU" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>하리. 이전에 조유리식 알앤비와 닮은 것 같다고 언급한 바 있음. 이건 멜라토닌에 헤롱헤롱할 때쯤 들으면 죽이는 노래.</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/BkZRBynEytw" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>나가쿠모. 최근에 어떤 에어컨 광고를 봤는데, 자기네 에어컨은 냉방뿐만 아니라 제습도 된다고 광고하길래 제습이 안 되는 에어컨이 있나? 하고 생각했음. 여튼, 나가쿠모는 그 광고처럼 제습까지 되는 에어컨 같음. 끝내주게 상쾌함. 얼마 전 나온 유체 커뮤니케이션즈와의 콜라보곡도 아주 좋았음.</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/OpBx4ePHRRo" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>파타손. 멜라토닌 나오기 시작하면 듣기 좋은 노래. 베드룸 팝에 보컬 좀 귀엽고.</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/n9mz6RnbSEI" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>해머 헤드 샤크. 개인적으로는 BYE MY NAKED EP를 아주 아주 좋아함. 시간도 많이 지났고 스타일도 약간 바뀌었지만 여전히 좋음.</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/If7yFF8qx50" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>마후네 토와. 이 곡도 그런 앨범의 수록곡. 음원보다 목소리가 높은데 이것도 이것대로 좋다.</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/tIvjSJobO9c" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>와쿠이 사라. 최근에 계속 밟히는 듯. 어쩌다 알게 됐더라? 이 곡은 댄서블하지만, 다른 곡들은 조금 더 얌전한 알앤비.</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/8hYKWjNU7AY" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>아리타 사키. 은근 다작하는데 다 좋음. 이건 최근 앨범 첫 곡.</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/C-aDqdmupA4" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>자부톤 닌자. 어떤 앨범은 듣다 보면 노래가 다 좋아서 오히려 내가 기분이 좋아서 좋게 들리는 건지 의심될 때가 있음. 그런 앨범의 수록곡. 그리고 이 목소리가 대학생이라는 게 좀 이해가 안 되는데.</p><div class="yt-embed" data-testid="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/o6h7tnjiiho" title="YouTube video player" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p>미레이. 커버 유튜버로 종종 찾아봤는데 이게 첫 오리지널 곡이었던 걸로 기억함. 올해 처음 앨범이 나왔고 수록돼 있어서, 2년 전 곡이지만 사심을 담아 담아봄. 아오바 이치코 영향도 보이는 곡.</p></div><a class="reader-home" href="/blog/" aria-label="archives로">← archives</a></article></main></body></html>
