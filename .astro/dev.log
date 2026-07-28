@@ -2,183 +2,54 @@
 {"message":"Generated 1ms","label":"types","level":"info"}
 {"message":"connected.","label":"vite","level":"info"}
 {"message":"Re-optimizing dependencies because vite config has changed","label":"vite","level":"info"}
-{"message":" astro  v7.1.3 ready in 2743 ms\n┃ Local    http://localhost:4321/blog\n┃ Network  use --host to expose","label":"SKIP_FORMAT","level":"info"}
+{"message":" astro  v7.1.3 ready in 2711 ms\n┃ Local    http://localhost:4321/blog\n┃ Network  use --host to expose","label":"SKIP_FORMAT","level":"info"}
 {"message":"watching for file changes...","label":null,"level":"info"}
-{"message":"Request URLs for public/ assets must also include your base. \"/blog/favicon.ico\" expected, but received \"/favicon.ico\".","label":"router","level":"error"}
-{"message":"[200] / 63ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26mv 8ms","label":null,"level":"info"}
+{"message":"A `getStaticPaths()` route pattern was matched, but no matching static path was found for requested path `/posts/1h26japanesedigging`.\n\nPossible dynamic routes being matched: src/pages/posts/[slug].astro.","label":"router","level":"warn"}
+{"message":"[404] /posts/1h26japanesedigging 22ms","label":null,"level":"info"}
+{"message":"[200] / 21ms","label":null,"level":"info"}
+{"message":"[200] /posts/1h26-japanese-digging-club 8ms","label":null,"level":"info"}
 {"message":"[200] / 3ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26mv 2ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26mv 9ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26mv 8ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26mv 6ms","label":null,"level":"info"}
+{"message":"[200] /posts/1h26-mv 2ms","label":null,"level":"info"}
+{"message":"[200] / 2ms","label":null,"level":"info"}
+{"message":"[200] /posts/where-is-my-mind 3ms","label":null,"level":"info"}
 {"message":"docs/404.html","label":"watch","level":"info"}
 {"message":"docs/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/1h26/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/alternative-idols/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/asako/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/eureka/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/evil-does-not-exist-and-monster/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/catharsis/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/good-luck/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/haruy-kamina/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/hiccup/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/kayoko-yoshizawa/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/love-letter/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/platform-invoke/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/pinball/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/ray-asia-tour-2024-korea/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/schezade/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/suisei/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/understand-you/index.html","label":"watch","level":"info"}
-{"message":"docs/404.html","label":"watch","level":"info"}
-{"message":"docs/posts/1h26mv/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/alternative-idols/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/asako/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/hiccup/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/kayoko-yoshizawa/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/catharsis/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/love-letter/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/suisei/index.html","label":"watch","level":"info"}
-{"message":"docs/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/understand-you/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/eureka/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/evil-does-not-exist-and-monster/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/good-luck/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/haruy-kamina/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/platform-invoke/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/pinball/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/schezade/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/ray-asia-tour-2024-korea/index.html","label":"watch","level":"info"}
-{"message":"[200] / 13ms","label":null,"level":"info"}
-{"message":"[200] / 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 13ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 7ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 8ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 10ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 8ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 7ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 7ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 7ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 5ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 13ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 6ms","label":null,"level":"info"}
-{"message":"[200] /posts/1h26japanesedigging 7ms","label":null,"level":"info"}
-{"message":"docs/404.html","label":"watch","level":"info"}
-{"message":"docs/posts/eureka/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/catharsis/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/good-luck/index.html","label":"watch","level":"info"}
-{"message":"docs/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/alternative-idols/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/1h26mv/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/evil-does-not-exist-and-monster/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/asako/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/haruy-kamina/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/hiccup/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/kayoko-yoshizawa/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/love-letter/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/pinball/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/platform-invoke/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/ray-asia-tour-2024-korea/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/schezade/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/suisei/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/understand-you/index.html","label":"watch","level":"info"}
-{"message":"docs/404.html","label":"watch","level":"info"}
 {"message":"docs/posts/1h26japanesedigging/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/1h26mv/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/alternative-idols/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/asako/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/catharsis/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/eureka/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/evil-does-not-exist-and-monster/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/good-luck/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/haruy-kamina/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/hiccup/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/pinball/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/kayoko-yoshizawa/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/love-letter/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/platform-invoke/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/schezade/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/ray-asia-tour-2024-korea/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/understand-you/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/suisei/index.html","label":"watch","level":"info"}
+{"message":"docs/404.html","label":"watch","level":"info"}
+{"message":"docs/posts/1h26-japanese-digging-club/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/1h26-mv/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/alternative-idols/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/hiccup/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/kayoko-yoshizawa/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/asako/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/love-letter/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/catharsis/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/suisei/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/understand-you/index.html","label":"watch","level":"info"}
+{"message":"docs/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/evil-does-not-exist-and-monster/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/eureka/index.html","label":"watch","level":"info"}
-{"message":"docs/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/good-luck/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/haruy-kamina/index.html","label":"watch","level":"info"}
-{"message":"docs/posts/platform-invoke/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/pinball/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/platform-invoke/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/ray-asia-tour-2024-korea/index.html","label":"watch","level":"info"}
+{"message":"docs/posts/where-is-my-mind/index.html","label":"watch","level":"info"}
 {"message":"docs/posts/schezade/index.html","label":"watch","level":"info"}
